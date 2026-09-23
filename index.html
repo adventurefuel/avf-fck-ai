@@ -8,6 +8,8 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 32%22><path d=%22M12 1C12 1 3 11 3 19C3 25.075 7.03 30 13 30C18.52 30 22 25.52 22 20C22 13 16 9 16 9C16 9 18 13 16 15C16 15 15 8 12 1Z%22 fill=%22%23ff6a1a%22/></svg>">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
   :root{
     --bg:#0b0a09;
@@ -271,6 +273,42 @@
   .row-remove{background:transparent;border:1px solid var(--border);color:var(--text-faint);border-radius:99px;width:26px;height:26px;line-height:1;font-size:15px;}
   .row-remove:hover{border-color:var(--flame-red);color:var(--flame-red);}
 
+  /* ---------- canvassing ---------- */
+  .canvass-form{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-card);padding:22px;}
+  .cf-grid{display:grid;grid-template-columns:1fr 2fr 1fr auto;gap:0 16px;align-items:end;}
+  @media (max-width:800px){.cf-grid{grid-template-columns:1fr 1fr;}}
+  .cf-grid .bp-field{margin-bottom:0;}
+  .cf-grid input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);padding:10px 12px;}
+  #canvass-search-btn{height:42px;white-space:nowrap;}
+  .canvass-status{color:var(--text-faint);font-size:12.5px;margin-top:12px;}
+  .canvass-status.err{color:var(--flame-red);}
+
+  .canvass-layout{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;}
+  @media (max-width:900px){.canvass-layout{grid-template-columns:1fr;}}
+  #canvass-map{height:420px;border-radius:var(--radius-card);border:1px solid var(--border-soft);background:var(--surface);z-index:0;}
+  .result-list{max-height:420px;overflow-y:auto;border:1px solid var(--border-soft);border-radius:var(--radius-card);background:var(--surface);}
+  .result-row{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border-soft);}
+  .result-row:last-child{border-bottom:none;}
+  .result-row input[type="checkbox"]{margin-top:4px;accent-color:var(--flame-orange);flex-shrink:0;}
+  .result-row .rr-name{font-weight:800;font-size:13.5px;}
+  .result-row .rr-meta{color:var(--text-faint);font-size:12px;margin-top:2px;line-height:1.5;}
+  .result-row .rr-rating{color:var(--flame-yellow);font-weight:700;}
+  .route-actions{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0;}
+  .route-list{display:flex;flex-direction:column;gap:10px;}
+  .route-stop{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:32px 1.4fr 1fr 1fr auto;gap:14px;align-items:center;}
+  @media (max-width:900px){.route-stop{grid-template-columns:32px 1fr;grid-template-areas:"num name" "num meta" "num status" "num actions";}}
+  .route-stop .rs-num{width:32px;height:32px;border-radius:99px;background:var(--flame-grad);color:#1a0d05;font-weight:800;font-family:'IBM Plex Mono';display:flex;align-items:center;justify-content:center;font-size:13px;}
+  .route-stop .rs-name{font-weight:800;font-size:13.5px;}
+  .route-stop .rs-addr{color:var(--text-faint);font-size:12px;margin-top:3px;}
+  .route-stop select.status-select{width:100%;}
+  .route-stop input.rs-notes{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);padding:7px 10px;font-size:12.5px;}
+  .route-stop .rs-add50{background:var(--surface-3);border:1px solid var(--border);color:var(--text-dim);border-radius:99px;padding:6px 12px;font-size:11.5px;font-weight:700;white-space:nowrap;}
+  .route-stop .rs-add50:disabled{opacity:.4;}
+  .past-runs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+  .run-chip{background:var(--surface);border:1px solid var(--border);color:var(--text-dim);border-radius:99px;padding:6px 13px;font-size:12px;font-weight:700;}
+  .run-chip:hover{border-color:var(--flame-orange);}
+  .run-chip.active{background:var(--flame-grad);border-color:transparent;color:#1a0d05;}
+
   .tracker-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;margin-bottom:20px;}
   .tracker-stats{display:flex;gap:24px;}
   .tstat .n{font-family:'Anton';font-size:26px;}
@@ -299,10 +337,42 @@
   .empty-state{text-align:center;padding:60px 20px;color:var(--text-faint);}
 
   footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--border-soft);color:var(--text-faint);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+
+  .auth-gate{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;}
+  .auth-gate.hidden{display:none;}
+  .auth-card{width:100%;max-width:380px;background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-card);padding:32px 28px;text-align:center;}
+  .auth-brand{display:flex;justify-content:center;margin-bottom:6px;}
+  .auth-lede{color:var(--text-dim);font-size:13.5px;margin:6px 0 26px;}
+  .auth-card form{text-align:left;}
+  .auth-foot{color:var(--text-faint);font-size:11.5px;margin-top:18px;}
+  #app-root.gated{display:none;}
+  .auth-status{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--text-faint);flex-shrink:0;}
+  .auth-status .au-name{color:var(--text-dim);}
+  .auth-status .au-role{background:var(--surface-3);color:var(--text-faint);border-radius:99px;padding:2px 8px;text-transform:uppercase;letter-spacing:.05em;font-size:10px;}
+  .auth-status button{background:transparent;border:1px solid var(--border);color:var(--text-faint);border-radius:99px;padding:5px 12px;font-size:11px;cursor:pointer;}
+  .auth-status button:hover{color:var(--text);border-color:var(--flame-orange);}
+  .owner-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-faint);background:var(--surface-3);border-radius:99px;padding:2px 8px;margin-left:8px;}
 </style>
 </head>
 <body>
 
+<div id="auth-gate" class="auth-gate">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <div class="brand-name" style="font-size:20px;">FCK AI<span>ADVENTURE FUEL &middot; COMMAND CENTER</span></div>
+    </div>
+    <p class="auth-lede">Team access only &mdash; sign in with your Adventure Fuel account.</p>
+    <form id="auth-form">
+      <div class="bp-field"><label>Email</label><input type="email" id="auth-email" autocomplete="username" required></div>
+      <div class="bp-field"><label>Password</label><input type="password" id="auth-password" autocomplete="current-password" required></div>
+      <button type="submit" class="btn btn-primary btn-block" id="auth-submit">Sign in</button>
+      <div id="auth-msg" class="save-msg" style="margin-top:10px;min-height:16px;"></div>
+    </form>
+    <p class="auth-foot">Need access? Ask an admin to add your email in Supabase.</p>
+  </div>
+</div>
+
+<div id="app-root" class="gated">
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">
@@ -313,9 +383,11 @@
       <button data-tab="overview" class="active">Overview</button>
       <button data-tab="diagnostic">Diagnostic</button>
       <button data-tab="first50">First 50</button>
+      <button data-tab="canvassing">Canvassing</button>
       <button data-tab="playbook">Playbook</button>
       <button data-tab="tracker">Campaigns</button>
     </nav>
+    <div class="auth-status" id="auth-status"></div>
   </div>
 </div>
 
@@ -460,6 +532,7 @@
     <span class="eyebrow">Stage 1 &middot; Identify</span>
     <h2 style="font-size:clamp(24px,3.4vw,34px);margin-top:10px;">Your First 50.</h2>
     <p class="section-sub" style="max-width:640px;">The real names behind the diagnostic &mdash; current and past customers, members, employees, friends and family, partners, and advocates. This is the prioritized audience map Stage 1 produces.</p>
+    <p class="section-sub" id="rp-scope-note" style="margin-top:-14px;"></p>
 
     <div class="roster-progress">
       <div class="rp-top">
@@ -494,6 +567,42 @@
         <thead><tr><th>Name</th><th>Category</th><th>Contact</th><th>Status</th><th></th></tr></thead>
         <tbody id="roster-body"></tbody>
       </table>
+    </div>
+  </section>
+
+  <!-- ===================== CANVASSING ===================== -->
+  <section class="tab" id="tab-canvassing">
+    <span class="eyebrow">Stage 1 &amp; 2 &middot; Identify + Equip, in person</span>
+    <h2 style="font-size:clamp(24px,3.4vw,34px);margin-top:10px;">Canvassing planner.</h2>
+    <p class="section-sub" style="max-width:660px;">Find real businesses around a zip code, pick the ones worth a flyer drop, and turn them into an ordered walking route with a printable checklist. Standout stops go straight into your First 50 as Local business prospects.</p>
+
+    <div class="canvass-form">
+      <div class="cf-grid">
+        <div class="bp-field"><label>Zip code</label><input type="text" id="cv-zip" placeholder="48043" inputmode="numeric" maxlength="10"></div>
+        <div class="bp-field"><label>Business type</label><input type="text" id="cv-term" placeholder="hair salons, coffee shops, gyms…"></div>
+        <div class="bp-field"><label>Radius (mi)</label><input type="number" id="cv-radius" value="1.5" min="0.25" max="20" step="0.25"></div>
+        <button class="btn btn-primary" id="canvass-search-btn">Find businesses</button>
+      </div>
+      <div class="canvass-status" id="canvass-status"></div>
+      <div class="past-runs" id="past-runs"></div>
+    </div>
+
+    <div class="canvass-layout">
+      <div id="canvass-map"></div>
+      <div class="result-list" id="result-list">
+        <div style="padding:20px 16px;color:var(--text-faint);">Search a zip code and business type above to see nearby businesses here.</div>
+      </div>
+    </div>
+
+    <div id="route-section">
+      <h2 class="section-title">Today's route</h2>
+      <p class="section-sub" id="route-sub">Check off businesses in the list above, then build a route.</p>
+      <div class="route-actions">
+        <button class="btn btn-primary" id="build-route-btn">Build route from selected</button>
+        <button class="btn btn-ghost" id="open-maps-btn" style="display:none;">Open route in Google Maps</button>
+        <button class="btn btn-ghost" id="print-route-btn" style="display:none;">Print checklist</button>
+      </div>
+      <div class="route-list" id="route-list"></div>
     </div>
   </section>
 
@@ -538,6 +647,7 @@
   </section>
 
 </div>
+</div><!-- /#app-root -->
 
 <script>
 (function(){
@@ -659,6 +769,7 @@
       document.getElementById("tab-"+btn.dataset.tab).classList.add("active");
       if(btn.dataset.tab === "tracker"){ renderTracker(dbLoaded ? liveList : undefined); }
       if(btn.dataset.tab === "first50"){ renderRoster(rosterLoaded ? rosterList : undefined); }
+      if(btn.dataset.tab === "canvassing"){ initCanvassMap(); }
     });
   });
 
@@ -860,6 +971,103 @@
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
     : null;
 
+  // ---------------------------------------------------------------
+  // Auth gate — team login required; each person only sees their own
+  // First 50 roster and canvassing runs (admins see everyone's).
+  // The shared Campaigns tracker stays visible to the whole team.
+  // ---------------------------------------------------------------
+  var currentUser = null; // {id, email, fullName, role}
+  var dataInited = false;
+  var authGateEl = document.getElementById("auth-gate");
+  var appRootEl = document.getElementById("app-root");
+  var authStatusEl = document.getElementById("auth-status");
+  var authForm = document.getElementById("auth-form");
+  var authMsg = document.getElementById("auth-msg");
+  var authSubmit = document.getElementById("auth-submit");
+
+  function showGate(){
+    authGateEl.classList.remove("hidden");
+    appRootEl.classList.add("gated");
+    if(authStatusEl) authStatusEl.innerHTML = "";
+  }
+  function showApp(){
+    authGateEl.classList.add("hidden");
+    appRootEl.classList.remove("gated");
+  }
+  function renderAuthStatus(){
+    if(!authStatusEl) return;
+    if(!currentUser){ authStatusEl.innerHTML = ""; return; }
+    authStatusEl.innerHTML =
+      '<span class="au-name">'+(currentUser.fullName || currentUser.email)+'</span>'+
+      '<span class="au-role">'+(currentUser.role || "team")+'</span>'+
+      '<button id="auth-signout-btn" type="button">Sign out</button>';
+    document.getElementById("auth-signout-btn").addEventListener("click", function(){
+      if(sb) sb.auth.signOut();
+    });
+  }
+
+  if(authForm){
+    authForm.addEventListener("submit", function(e){
+      e.preventDefault();
+      if(!sb){ authMsg.textContent = "Sign-in isn't available in this view."; authMsg.className = "save-msg err"; return; }
+      var email = document.getElementById("auth-email").value.trim();
+      var password = document.getElementById("auth-password").value;
+      authSubmit.disabled = true;
+      authMsg.textContent = "Signing in…";
+      authMsg.className = "save-msg";
+      sb.auth.signInWithPassword({email:email, password:password}).then(function(res){
+        authSubmit.disabled = false;
+        if(res.error){
+          authMsg.textContent = res.error.message || "Couldn't sign in — check your email and password.";
+          authMsg.className = "save-msg err";
+          return;
+        }
+        authMsg.textContent = "";
+      });
+    });
+  }
+
+  function loadProfile(user){
+    if(!sb || !user){ return Promise.resolve(null); }
+    return sb.from("profiles").select("full_name, role").eq("id", user.id).maybeSingle().then(function(res){
+      var p = (res && res.data) || {};
+      return { id: user.id, email: user.email, fullName: p.full_name || user.email, role: p.role || "hunter" };
+    });
+  }
+
+  if(sb){
+    sb.auth.onAuthStateChange(function(event, session){
+      if(session && session.user){
+        loadProfile(session.user).then(function(profile){
+          currentUser = profile;
+          renderAuthStatus();
+          showApp();
+          if(!dataInited){ dataInited = true; initData(); }
+        });
+      } else {
+        currentUser = null;
+        dataInited = false;
+        showGate();
+      }
+    });
+  } else {
+    // No Supabase client available (e.g. offline preview) — degrade by showing the app unlocked.
+    showApp();
+  }
+
+  function initData(){
+    fetchCampaigns();
+    fetchRoster();
+    fetchPastRuns();
+    loadOwnerNames();
+    sb.channel("fck_ai_campaigns_changes")
+      .on("postgres_changes", {event:"*", schema:"public", table:"fck_ai_campaigns"}, function(){ fetchCampaigns(); })
+      .subscribe();
+    sb.channel("fck_ai_first50_changes")
+      .on("postgres_changes", {event:"*", schema:"public", table:"fck_ai_first50"}, function(){ fetchRoster(); })
+      .subscribe();
+  }
+
   function mapCampaignRow(r){
     return {
       id: r.id, clientName: r.client_name, audienceLabel: r.audience_label, audienceSize: r.audience_size,
@@ -955,7 +1163,8 @@
       learning_goal: document.getElementById("bp-learning").value,
       score: window.__currentScore || 0,
       classification: window.__currentClass || "low",
-      status: "Planned", is_example: false
+      status: "Planned", is_example: false,
+      created_by: currentUser ? currentUser.id : null
     };
     sb.from("fck_ai_campaigns").insert(record).then(function(res){
       if(res.error){
@@ -981,17 +1190,12 @@
       }
     });
   }
-  fetchCampaigns();
-  if(sb){
-    sb.channel("fck_ai_campaigns_changes")
-      .on("postgres_changes", {event:"*", schema:"public", table:"fck_ai_campaigns"}, function(){ fetchCampaigns(); })
-      .subscribe();
-  }
+  // Initial fetch + realtime subscription happen in initData(), once signed in.
 
   // ---------------------------------------------------------------
   // First 50 roster
   // ---------------------------------------------------------------
-  var CATEGORIES = ["Current customer","Past customer","Member / community","Employee / team","Friend / family","Partner / vendor","Follower / advocate"];
+  var CATEGORIES = ["Current customer","Past customer","Member / community","Employee / team","Friend / family","Partner / vendor","Follower / advocate","Local business"];
   document.getElementById("rf-category").innerHTML = CATEGORIES.map(function(c){return '<option>'+c+'</option>';}).join("");
 
   var rosterList = [];
@@ -1002,8 +1206,19 @@
     return {
       id: r.id, name: r.name, category: r.category, email: r.email, phone: r.phone,
       social: r.social, notes: r.notes, status: r.status, isExample: r.is_example,
+      ownerId: r.owner_id,
       createdAt: r.created_at ? new Date(r.created_at).getTime() : 0
     };
+  }
+
+  var ownerNames = {}; // populated for admins only — id -> full name, so a shared view can be attributed
+  function loadOwnerNames(){
+    if(!sb || !currentUser || currentUser.role !== "admin") return;
+    sb.from("profiles").select("id, full_name").then(function(res){
+      if(res.error || !res.data) return;
+      res.data.forEach(function(p){ ownerNames[p.id] = p.full_name; });
+      if(document.getElementById("tab-first50").classList.contains("active")){ renderRoster(rosterList); }
+    });
   }
 
   function renderChips(list){
@@ -1024,6 +1239,12 @@
 
   function renderRoster(list){
     var body = document.getElementById("roster-body");
+    var scopeNote = document.getElementById("rp-scope-note");
+    if(scopeNote){
+      scopeNote.textContent = (currentUser && currentUser.role === "admin")
+        ? "Signed in as admin — showing every team member's First 50, tagged by name."
+        : "Private to your login — teammates don't see your list.";
+    }
     if(!list){ body.innerHTML = '<tr><td colspan="5" style="color:var(--text-faint);padding:20px 16px;">Loading your First 50…</td></tr>'; return; }
 
     var total = list.length;
@@ -1048,7 +1269,7 @@
       if(p.social) contactLines.push('<div class="mono">'+p.social+'</div>');
       var contactHtml = contactLines.length ? contactLines.join("") : '<span class="none">&mdash;</span>';
       return '<tr data-id="'+p.id+'">'+
-        '<td><strong>'+p.name+'</strong>'+(p.isExample?'<span class="r-example">Example</span>':'')+(p.notes?'<div class="r-note">'+p.notes+'</div>':'')+'</td>'+
+        '<td><strong>'+p.name+'</strong>'+(p.isExample?'<span class="r-example">Example</span>':'')+(ownerNames[p.ownerId]?'<span class="owner-tag">'+ownerNames[p.ownerId]+'</span>':'')+(p.notes?'<div class="r-note">'+p.notes+'</div>':'')+'</td>'+
         '<td><span class="cat-pill">'+p.category+'</span></td>'+
         '<td class="r-contact">'+contactHtml+'</td>'+
         '<td><select class="status-select roster-status" data-id="'+p.id+'">'+
@@ -1082,7 +1303,8 @@
       phone: document.getElementById("rf-phone").value.trim(),
       social: document.getElementById("rf-social").value.trim(),
       notes: document.getElementById("rf-notes").value.trim(),
-      status: "Not contacted", is_example:false
+      status: "Not contacted", is_example:false,
+      owner_id: currentUser ? currentUser.id : null
     };
     sb.from("fck_ai_first50").insert(record).then(function(res){
       if(res.error){
@@ -1107,11 +1329,345 @@
       }
     });
   }
-  fetchRoster();
-  if(sb){
-    sb.channel("fck_ai_first50_changes")
-      .on("postgres_changes", {event:"*", schema:"public", table:"fck_ai_first50"}, function(){ fetchRoster(); })
-      .subscribe();
+  // Initial fetch + realtime subscription happen in initData(), once signed in.
+
+  // ---------------------------------------------------------------
+  // Canvassing planner
+  // ---------------------------------------------------------------
+  var canvassMap = null;
+  var canvassMarkersLayer = null;
+  var searchResults = [];
+  var searchCenter = null;
+  var currentRunId = null;
+  var currentRouteStops = [];
+  var pastRuns = [];
+  var pastRunsLoaded = false;
+
+  function initCanvassMap(){
+    if(!window.L){ return; }
+    if(!canvassMap){
+      canvassMap = L.map("canvass-map").setView([42.5803, -83.0302], 10);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; OpenStreetMap contributors", maxZoom: 19
+      }).addTo(canvassMap);
+      canvassMarkersLayer = L.layerGroup().addTo(canvassMap);
+    } else {
+      setTimeout(function(){ canvassMap.invalidateSize(); }, 60);
+    }
+    if(!pastRunsLoaded){ fetchPastRuns(); }
+  }
+
+  function haversineMiles(lat1, lng1, lat2, lng2){
+    var R = 3958.8;
+    var dLat = (lat2-lat1) * Math.PI/180;
+    var dLng = (lng2-lng1) * Math.PI/180;
+    var a = Math.sin(dLat/2)*Math.sin(dLat/2) +
+      Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)*Math.sin(dLng/2);
+    return R * 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  }
+
+  function nearestNeighborOrder(center, points){
+    var remaining = points.slice();
+    var ordered = [];
+    var cur = {lat: center.lat, lng: center.lng};
+    while(remaining.length){
+      var bestIdx = 0, bestDist = Infinity;
+      for(var i=0;i<remaining.length;i++){
+        var d = haversineMiles(cur.lat, cur.lng, remaining[i].lat, remaining[i].lng);
+        if(d < bestDist){ bestDist = d; bestIdx = i; }
+      }
+      var next = remaining.splice(bestIdx,1)[0];
+      ordered.push(next);
+      cur = {lat: next.lat, lng: next.lng};
+    }
+    return ordered;
+  }
+
+  function geocodeZip(zip){
+    return fetch("https://api.zippopotam.us/us/" + encodeURIComponent(zip)).then(function(r){
+      if(!r.ok) throw new Error("Zip code not found");
+      return r.json();
+    }).then(function(d){
+      var p = d.places && d.places[0];
+      if(!p) throw new Error("Zip code not found");
+      return {
+        lat: parseFloat(p.latitude), lng: parseFloat(p.longitude),
+        label: p["place name"] + ", " + p["state abbreviation"] + " " + zip
+      };
+    });
+  }
+
+  function setCanvassStatus(text, isErr){
+    var el = document.getElementById("canvass-status");
+    el.textContent = text || "";
+    el.className = "canvass-status" + (isErr ? " err" : "");
+  }
+
+  function drawSearchMarkers(){
+    if(!canvassMap) return;
+    canvassMarkersLayer.clearLayers();
+    if(searchCenter){
+      L.circleMarker([searchCenter.lat, searchCenter.lng], {
+        radius: 9, color: "#ff6a1a", fillColor: "#ffb020", fillOpacity: 1, weight: 3
+      }).addTo(canvassMarkersLayer).bindPopup("<b>Search center</b><br>" + searchCenter.label);
+    }
+    searchResults.forEach(function(b){
+      L.marker([b.lat, b.lng]).addTo(canvassMarkersLayer)
+        .bindPopup("<b>"+b.name+"</b><br>"+(b.category||"")+"<br>"+(b.address||""));
+    });
+    if(searchResults.length){
+      var bounds = L.latLngBounds(searchResults.map(function(b){return [b.lat,b.lng];}));
+      if(searchCenter) bounds.extend([searchCenter.lat, searchCenter.lng]);
+      canvassMap.fitBounds(bounds.pad(0.2));
+    } else if(searchCenter){
+      canvassMap.setView([searchCenter.lat, searchCenter.lng], 13);
+    }
+  }
+
+  function renderResultList(){
+    var wrap = document.getElementById("result-list");
+    if(!searchResults.length){
+      wrap.innerHTML = '<div style="padding:20px 16px;color:var(--text-faint);">No businesses found — try a wider radius or a different search term.</div>';
+      return;
+    }
+    wrap.innerHTML = searchResults.map(function(b, i){
+      return '<label class="result-row">'+
+        '<input type="checkbox" class="cv-check" data-idx="'+i+'">'+
+        '<span>'+
+          '<div class="rr-name">'+b.name+'</div>'+
+          '<div class="rr-meta">'+(b.category||"")+
+            (b.rating ? ' &middot; <span class="rr-rating">'+b.rating+'★</span> ('+(b.review_count||0)+')' : '')+
+            '<br>'+(b.address||"")+(b.phone ? ' &middot; '+b.phone : '')+
+          '</div>'+
+        '</span>'+
+      '</label>';
+    }).join("");
+  }
+
+  document.getElementById("canvass-search-btn").addEventListener("click", function(){
+    var zip = document.getElementById("cv-zip").value.trim();
+    var term = document.getElementById("cv-term").value.trim() || "businesses";
+    var radius = parseFloat(document.getElementById("cv-radius").value) || 1.5;
+    if(!zip){ setCanvassStatus("Enter a zip code first.", true); return; }
+    if(!sb){ setCanvassStatus("Search isn't available in this view.", true); return; }
+
+    setCanvassStatus("Looking up " + zip + "…");
+    geocodeZip(zip).then(function(center){
+      searchCenter = center;
+      setCanvassStatus("Searching for \"" + term + "\" near " + center.label + "…");
+      return sb.functions.invoke("yelp-search", { body: { lat: center.lat, lng: center.lng, term: term, radius_miles: radius } });
+    }).then(function(res){
+      if(res.error){ throw new Error(res.error.message || "Search failed"); }
+      var data = res.data || {};
+      if(data.error){ throw new Error(data.error); }
+      searchResults = data.businesses || [];
+      renderResultList();
+      drawSearchMarkers();
+      setCanvassStatus(searchResults.length + " businesses found near " + searchCenter.label + ". Check the ones worth a visit, then build a route.");
+      document.getElementById("route-list").innerHTML = "";
+      document.getElementById("route-sub").textContent = "Check off businesses in the list above, then build a route.";
+      document.getElementById("open-maps-btn").style.display = "none";
+      document.getElementById("print-route-btn").style.display = "none";
+      currentRunId = null;
+      currentRouteStops = [];
+    }).catch(function(err){
+      setCanvassStatus(err.message || "Something went wrong — try again.", true);
+    });
+  });
+
+  document.getElementById("build-route-btn").addEventListener("click", function(){
+    var checks = document.querySelectorAll(".cv-check:checked");
+    if(!checks.length){ setCanvassStatus("Check at least one business first.", true); return; }
+    if(!sb || !searchCenter){ setCanvassStatus("Run a search first.", true); return; }
+    var selected = Array.prototype.map.call(checks, function(c){ return searchResults[Number(c.dataset.idx)]; });
+    var ordered = nearestNeighborOrder(searchCenter, selected);
+
+    var term = document.getElementById("cv-term").value.trim() || "businesses";
+    var radius = parseFloat(document.getElementById("cv-radius").value) || 1.5;
+
+    sb.from("fck_ai_canvass_runs").insert({
+      zip_code: document.getElementById("cv-zip").value.trim(),
+      place_label: searchCenter.label,
+      category_term: term,
+      radius_miles: radius,
+      center_lat: searchCenter.lat,
+      center_lng: searchCenter.lng,
+      owner_id: currentUser ? currentUser.id : null
+    }).select().then(function(res){
+      if(res.error || !res.data || !res.data[0]){ setCanvassStatus("Couldn't save the route — try again.", true); return; }
+      var run = res.data[0];
+      currentRunId = run.id;
+      var rows = ordered.map(function(b, i){
+        return {
+          run_id: run.id, yelp_id: b.yelp_id, name: b.name, address: b.address, phone: b.phone,
+          category: b.category, rating: b.rating, review_count: b.review_count,
+          lat: b.lat, lng: b.lng, route_order: i, status: "Not visited",
+          owner_id: currentUser ? currentUser.id : null
+        };
+      });
+      return sb.from("fck_ai_canvass_stops").insert(rows).select();
+    }).then(function(res){
+      if(!res || res.error){ setCanvassStatus("Couldn't save the route stops — try again.", true); return; }
+      currentRouteStops = (res.data || []).sort(function(a,b){ return a.route_order - b.route_order; });
+      renderRoute();
+      drawRouteMarkers();
+      fetchPastRuns();
+    });
+  });
+
+  function drawRouteMarkers(){
+    if(!canvassMap || !currentRouteStops.length) return;
+    canvassMarkersLayer.clearLayers();
+    if(searchCenter){
+      L.circleMarker([searchCenter.lat, searchCenter.lng], {
+        radius: 9, color: "#ff6a1a", fillColor: "#ffb020", fillOpacity: 1, weight: 3
+      }).addTo(canvassMarkersLayer).bindPopup("<b>Start</b><br>" + searchCenter.label);
+    }
+    currentRouteStops.forEach(function(s){
+      var icon = L.divIcon({
+        className: "", html: '<div style="background:linear-gradient(135deg,#ff6a1a,#ffb020);color:#1a0d05;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:IBM Plex Mono,monospace;font-size:12px;border:2px solid #1a0d05;">'+(s.route_order+1)+'</div>',
+        iconSize: [26,26], iconAnchor: [13,13]
+      });
+      L.marker([s.lat, s.lng], {icon: icon}).addTo(canvassMarkersLayer).bindPopup("<b>"+(s.route_order+1)+". "+s.name+"</b><br>"+(s.address||""));
+    });
+    var bounds = L.latLngBounds(currentRouteStops.map(function(s){return [s.lat,s.lng];}));
+    bounds.extend([searchCenter.lat, searchCenter.lng]);
+    canvassMap.fitBounds(bounds.pad(0.2));
+  }
+
+  function renderRoute(){
+    var wrap = document.getElementById("route-list");
+    if(!currentRouteStops.length){
+      wrap.innerHTML = "";
+      document.getElementById("route-sub").textContent = "Check off businesses in the list above, then build a route.";
+      document.getElementById("open-maps-btn").style.display = "none";
+      document.getElementById("print-route-btn").style.display = "none";
+      return;
+    }
+    document.getElementById("route-sub").textContent = currentRouteStops.length + " stops, ordered for an efficient walk starting from " + (searchCenter ? searchCenter.label : "your search point") + ".";
+    document.getElementById("open-maps-btn").style.display = "";
+    document.getElementById("print-route-btn").style.display = "";
+
+    wrap.innerHTML = currentRouteStops.map(function(s){
+      return '<div class="route-stop" data-id="'+s.id+'">'+
+        '<div class="rs-num">'+(s.route_order+1)+'</div>'+
+        '<div><div class="rs-name">'+s.name+'</div><div class="rs-addr">'+(s.category||"")+(s.phone?' &middot; '+s.phone:'')+'</div><div class="rs-addr">'+(s.address||"")+'</div></div>'+
+        '<select class="status-select route-status" data-id="'+s.id+'">'+
+          ["Not visited","Left flyer","Talked to someone","Interested","Not interested"].map(function(op){return '<option'+(s.status===op?' selected':'')+'>'+op+'</option>';}).join("")+
+        '</select>'+
+        '<input type="text" class="rs-notes" data-id="'+s.id+'" placeholder="Notes / outcome" value="'+(s.notes ? s.notes.replace(/"/g,"&quot;") : '')+'">'+
+        '<button class="rs-add50" data-id="'+s.id+'" '+(s.added_to_first50?'disabled':'')+'>'+(s.added_to_first50?'Added ✓':'Add to First 50')+'</button>'+
+      '</div>';
+    }).join("");
+
+    wrap.querySelectorAll(".route-status").forEach(function(sel){
+      sel.addEventListener("change", function(){
+        if(sb){ sb.from("fck_ai_canvass_stops").update({status: sel.value}).eq("id", sel.dataset.id).then(function(){}); }
+        var stop = currentRouteStops.find(function(s){return s.id === sel.dataset.id;});
+        if(stop) stop.status = sel.value;
+      });
+    });
+    wrap.querySelectorAll(".rs-notes").forEach(function(inp){
+      inp.addEventListener("change", function(){
+        if(sb){ sb.from("fck_ai_canvass_stops").update({notes: inp.value}).eq("id", inp.dataset.id).then(function(){}); }
+      });
+    });
+    wrap.querySelectorAll(".rs-add50").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var stop = currentRouteStops.find(function(s){return s.id === btn.dataset.id;});
+        if(!stop || !sb) return;
+        sb.from("fck_ai_first50").insert({
+          name: stop.name, category: "Local business", email: "", phone: stop.phone || "",
+          social: "", notes: "Canvassing prospect — " + (stop.category||"") + (stop.address ? " (" + stop.address + ")" : ""),
+          status: "Not contacted", is_example: false,
+          owner_id: currentUser ? currentUser.id : null
+        }).then(function(res){
+          if(res.error) return;
+          sb.from("fck_ai_canvass_stops").update({added_to_first50: true}).eq("id", stop.id).then(function(){});
+          stop.added_to_first50 = true;
+          btn.disabled = true;
+          btn.textContent = "Added ✓";
+        });
+      });
+    });
+  }
+
+  document.getElementById("open-maps-btn").addEventListener("click", function(){
+    if(!currentRouteStops.length || !searchCenter) return;
+    var origin = searchCenter.lat + "," + searchCenter.lng;
+    var last = currentRouteStops[currentRouteStops.length-1];
+    var destination = last.lat + "," + last.lng;
+    var waypoints = currentRouteStops.slice(0,-1).map(function(s){ return s.lat+","+s.lng; }).join("|");
+    var url = "https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent(origin)+
+      "&destination="+encodeURIComponent(destination)+
+      (waypoints ? "&waypoints="+encodeURIComponent(waypoints) : "") +
+      "&travelmode=walking";
+    window.open(url, "_blank");
+  });
+
+  document.getElementById("print-route-btn").addEventListener("click", function(){
+    if(!currentRouteStops.length) return;
+    var rows = currentRouteStops.map(function(s){
+      return '<tr>'+
+        '<td style="padding:8px;border:1px solid #ccc;font-weight:700;">'+(s.route_order+1)+'</td>'+
+        '<td style="padding:8px;border:1px solid #ccc;">'+s.name+'<br><span style="color:#666;font-size:12px;">'+(s.category||"")+(s.phone?' &middot; '+s.phone:'')+'</span></td>'+
+        '<td style="padding:8px;border:1px solid #ccc;">'+(s.address||"")+'</td>'+
+        '<td style="padding:8px;border:1px solid #ccc;width:160px;">&#9633; Left flyer &nbsp; &#9633; Talked &nbsp; &#9633; Interested</td>'+
+        '<td style="padding:8px;border:1px solid #ccc;width:180px;"></td>'+
+      '</tr>';
+    }).join("");
+    var html = '<html><head><title>Canvassing checklist</title></head><body style="font-family:sans-serif;padding:24px;">'+
+      '<h2>FCK AI Canvassing Checklist</h2>'+
+      '<p>'+(searchCenter?searchCenter.label:'')+' &middot; '+document.getElementById("cv-term").value+' &middot; '+currentRouteStops.length+' stops</p>'+
+      '<table style="border-collapse:collapse;width:100%;font-size:13px;">'+
+      '<tr><th style="padding:8px;border:1px solid #ccc;text-align:left;">#</th><th style="padding:8px;border:1px solid #ccc;text-align:left;">Business</th><th style="padding:8px;border:1px solid #ccc;text-align:left;">Address</th><th style="padding:8px;border:1px solid #ccc;text-align:left;">Outcome</th><th style="padding:8px;border:1px solid #ccc;text-align:left;">Notes</th></tr>'+
+      rows + '</table></body></html>';
+    var w = window.open("", "_blank");
+    w.document.write(html);
+    w.document.close();
+    w.focus();
+    w.print();
+  });
+
+  function fetchPastRuns(){
+    if(!sb) return;
+    sb.from("fck_ai_canvass_runs").select("*").order("created_at", {ascending:false}).limit(12).then(function(res){
+      pastRunsLoaded = true;
+      if(res.error) return;
+      pastRuns = res.data || [];
+      renderPastRuns();
+    });
+  }
+
+  function renderPastRuns(){
+    var wrap = document.getElementById("past-runs");
+    if(!pastRuns.length){ wrap.innerHTML = ""; return; }
+    wrap.innerHTML = pastRuns.map(function(r){
+      var d = r.created_at ? new Date(r.created_at) : null;
+      var label = (r.place_label || r.zip_code) + " · " + (r.category_term || "") + (d ? " · " + (d.getMonth()+1)+"/"+d.getDate() : "");
+      return '<button class="run-chip'+(currentRunId===r.id?' active':'')+'" data-id="'+r.id+'">'+label+'</button>';
+    }).join("");
+    wrap.querySelectorAll(".run-chip").forEach(function(chip){
+      chip.addEventListener("click", function(){
+        var run = pastRuns.find(function(r){return r.id === chip.dataset.id;});
+        if(!run) return;
+        currentRunId = run.id;
+        searchCenter = {lat: run.center_lat, lng: run.center_lng, label: run.place_label || run.zip_code};
+        document.getElementById("cv-zip").value = run.zip_code || "";
+        document.getElementById("cv-term").value = run.category_term || "";
+        document.getElementById("cv-radius").value = run.radius_miles || 1.5;
+        setCanvassStatus("Loaded a previous route: " + run.place_label);
+        renderPastRuns();
+        sb.from("fck_ai_canvass_stops").select("*").eq("run_id", run.id).order("route_order").then(function(res){
+          if(res.error) return;
+          currentRouteStops = res.data || [];
+          searchResults = [];
+          document.getElementById("result-list").innerHTML = '<div style="padding:20px 16px;color:var(--text-faint);">Showing a saved route. Search again to find new businesses.</div>';
+          renderRoute();
+          drawRouteMarkers();
+        });
+      });
+    });
   }
 })();
 </script>
