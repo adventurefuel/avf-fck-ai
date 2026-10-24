@@ -353,6 +353,61 @@
   .auth-status button{background:transparent;border:1px solid var(--border);color:var(--text-faint);border-radius:99px;padding:5px 12px;font-size:11px;cursor:pointer;}
   .auth-status button:hover{color:var(--text);border-color:var(--flame-orange);}
   .owner-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-faint);background:var(--surface-3);border-radius:99px;padding:2px 8px;margin-left:8px;}
+
+  /* ---------- guided activation: nav + workspace bar ---------- */
+  nav.tabs{flex-wrap:wrap;}
+  .workspace-bar{max-width:1180px;margin:0 auto;padding:0 24px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .workspace-bar .eyebrow{margin:0;}
+  .workspace-bar select{background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:99px;padding:7px 14px;font-size:12.5px;font-weight:700;max-width:260px;}
+  .workspace-bar .btn{padding:7px 14px;font-size:12px;}
+
+  /* ---------- guided activation: notices / pills ---------- */
+  .notice{border-left:3px solid var(--flame-yellow);background:rgba(255,176,32,.08);padding:12px 16px;font-size:13px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:16px 0;color:var(--text-dim);}
+  .notice.good{border-left-color:var(--good);background:rgba(74,222,128,.08);}
+  .notice ul{margin:8px 0 0;padding-left:20px;}
+  .notice li{margin-bottom:3px;}
+  .pill-status{display:inline-flex;align-items:center;border:1px solid var(--border);padding:3px 11px;border-radius:99px;font-size:10.5px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--text-faint);white-space:nowrap;}
+  .pill-status.good{color:var(--good);border-color:var(--good);}
+  .check-row{display:flex;align-items:flex-start;gap:9px;padding:7px 0;font-size:13.5px;color:var(--text-dim);}
+  .check-row input{width:17px;height:17px;flex-shrink:0;margin-top:3px;accent-color:var(--flame-orange);}
+
+  /* ---------- guided activation: Mission Control snapshot ---------- */
+  .mission-snapshot{margin-top:28px;}
+  .mission-snapshot .section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;}
+  .mission-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:18px 0;}
+  @media (max-width:760px){.mission-facts{grid-template-columns:1fr 1fr;}}
+  .mission-facts .dk{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--text-faint);margin-bottom:3px;}
+  .mission-facts .dv{font-size:13px;color:var(--text-dim);overflow-wrap:anywhere;}
+  .next-move{display:flex;justify-content:space-between;align-items:center;gap:20px;border:1px solid #855127;border-radius:var(--radius-card);background:linear-gradient(180deg,#2b1c10,var(--surface));padding:20px;margin-top:6px;}
+  .next-move h3{font-family:'Manrope';font-weight:800;font-size:16px;}
+  .next-move h3 small{font-weight:600;color:var(--text-faint);font-size:11.5px;font-family:'IBM Plex Mono';}
+  .next-move p{color:var(--text-dim);font-size:13px;margin:4px 0 0;}
+  .next-move .btn{flex-shrink:0;}
+  @media (max-width:700px){.next-move{display:block;}.next-move .btn{margin-top:14px;}}
+  .due-list{margin-top:18px;}
+  .due-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border-soft);font-size:12.5px;gap:10px;}
+
+  /* ---------- guided activation: task / kit cards ---------- */
+  .task-card{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;}
+  .task-card .task-meta{color:var(--text-faint);font-size:11.5px;margin-top:6px;}
+  .task-card .task-eyebrow{font-size:10px;}
+  .task-actions{display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
+  @media (max-width:700px){.task-card{grid-template-columns:1fr;}.task-actions{align-items:flex-start;}}
+
+  /* ---------- guided activation: dialog ---------- */
+  dialog#fck-dialog{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-card);width:min(760px,94vw);max-height:88vh;padding:26px;box-shadow:var(--shadow-lift);}
+  dialog#fck-dialog::backdrop{background:rgba(0,0,0,.72);}
+  .dialog-head{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:16px;}
+  .dialog-head h2{margin:0;font-size:20px;font-family:'Anton';}
+  .dialog-close{background:transparent;border:1px solid var(--border);color:var(--text-faint);border-radius:99px;width:30px;height:30px;line-height:1;font-size:15px;padding:0;}
+  .dialog-close:hover{border-color:var(--flame-orange);color:var(--text);}
+  #dialog-body textarea#prompt-text{min-height:320px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;}
+  #dialog-body .timeline{padding:11px 0;border-bottom:1px solid var(--border-soft);font-size:12.5px;}
+  #dialog-body .timeline small{color:var(--text-faint);font-family:'IBM Plex Mono';}
+  #dialog-body .timeline p{white-space:pre-wrap;margin:4px 0 0;}
+  #dialog-body .list{padding-left:18px;color:var(--text-dim);font-size:13px;}
+  .attachment-row{padding:10px;border:1px solid var(--border-soft);margin:8px 0;border-radius:var(--radius-sm);font-size:12.5px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  #fck-toast{position:fixed;bottom:22px;right:22px;background:var(--surface-2);border:1px solid var(--flame-orange);padding:12px 20px;border-radius:var(--radius-sm);max-width:90vw;display:none;z-index:220;font-size:13px;}
 </style>
 </head>
 <body>
@@ -382,14 +437,25 @@
       <div class="brand-name">FCK AI<span>ADVENTURE FUEL &middot; COMMAND CENTER</span></div>
     </div>
     <nav class="tabs" id="tabnav">
-      <button data-tab="overview" class="active">Overview</button>
-      <button data-tab="diagnostic">Diagnostic</button>
-      <button data-tab="first50">First 50</button>
+      <button data-tab="overview" class="active">Mission Control</button>
+      <button data-tab="foundation">01 &middot; Foundation</button>
+      <button data-tab="diagnostic">02 &middot; Destination</button>
+      <button data-tab="first50">03 &middot; First 50</button>
+      <button data-tab="prereqs">04 &middot; Gear</button>
+      <button data-tab="kit">05 &middot; Launch Kit</button>
+      <button data-tab="readiness">06 &middot; Launch Check</button>
+      <button data-tab="outreach">07 &middot; Make Your Move</button>
+      <button data-tab="learn">08 &middot; Fuel What Works</button>
       <button data-tab="canvassing">Canvassing</button>
       <button data-tab="playbook">Playbook</button>
-      <button data-tab="tracker">Campaigns</button>
+      <button data-tab="tracker">All Campaigns</button>
     </nav>
     <div class="auth-status" id="auth-status"></div>
+  </div>
+  <div class="workspace-bar">
+    <span class="eyebrow">Active campaign</span>
+    <select id="campaign-picker"><option value="">Loading…</option></select>
+    <button class="btn btn-ghost" id="new-campaign-btn" type="button">+ New brand / campaign</button>
   </div>
 </div>
 
@@ -417,6 +483,20 @@
       <h1>Forget Conventional <em>Knowledge.</em></h1>
       <p class="lede">Adventure Fuel's human-first activation methodology. Most organizations already know people who can help them grow &mdash; they've just never built an intentional, repeatable system for asking those people to act. This is that system.</p>
     </div>
+
+    <section class="card mission-snapshot" id="mission-snapshot">
+      <div class="section-head">
+        <div><span class="eyebrow">Your activation</span><h2 id="ms-title" style="margin-top:6px;font-size:22px;">Set your activation goal.</h2><p id="ms-sub" style="color:var(--text-faint);font-size:13px;margin-top:4px;">Pick or create a campaign above to see your next move.</p></div>
+        <span class="pill-status" id="ms-status">No campaign selected</span>
+      </div>
+      <dl class="mission-facts" id="ms-facts"></dl>
+      <div class="next-move" id="ms-next" style="display:none;">
+        <div><span class="eyebrow">Your next move</span><h3 id="ms-next-title"></h3><p id="ms-next-desc"></p></div>
+        <button class="btn btn-primary" id="ms-next-btn">Open this step &rarr;</button>
+      </div>
+      <div id="ms-blockers"></div>
+      <div class="due-list" id="ms-due"></div>
+    </section>
 
     <div class="banner">
       <h2>Before we buy attention, we activate the attention you already own.</h2>
@@ -469,9 +549,29 @@
     </footer>
   </section>
 
-  <!-- ===================== DIAGNOSTIC ===================== -->
+  <!-- ===================== FOUNDATION (guided step 01) ===================== -->
+  <section class="tab" id="tab-foundation">
+    <span class="eyebrow">01 &middot; Fuel Your Foundation</span>
+    <h2 style="font-size:clamp(24px,3.4vw,34px);margin-top:10px;">Start with the business.</h2>
+    <p class="section-sub" style="max-width:640px;">This context travels with every AI prompt and every asset you build below. No campaign selected yet? Use &ldquo;+ New brand / campaign&rdquo; above first.</p>
+    <div class="notice" id="fnd-noselect">Pick or create a campaign in the bar above to edit its foundation.</div>
+    <form id="foundation-form" class="card" style="display:none;">
+      <div class="bp-grid">
+        <div class="bp-field"><label>Business / campaign name</label><input type="text" id="fnd-business" placeholder="e.g. Freedom Ministries"></div>
+        <div class="bp-field"><label>Brand owner / founder</label><input type="text" id="fnd-owner"></div>
+        <div class="bp-field"><label>Website (if available)</label><input type="url" id="fnd-website" placeholder="https://"></div>
+        <div class="bp-field"><label>Who is it for? (audience)</label><textarea id="fnd-audience" placeholder="Reuses the Destination step's audience field too."></textarea></div>
+        <div class="bp-field"><label>What do you offer?</label><textarea id="fnd-offer"></textarea></div>
+        <div class="bp-field"><label>How do you naturally talk to your audience? (voice)</label><textarea id="fnd-voice"></textarea></div>
+        <div class="bp-field" style="grid-column:1/-1;"><label>Clearly approved copy / claims</label><textarea id="fnd-approved" placeholder="Leave blank if not established. New AI copy stays proposed until approved."></textarea></div>
+      </div>
+      <div class="save-row"><button class="btn btn-primary" type="submit">Save foundation</button><span class="save-msg" id="fnd-msg"></span></div>
+    </form>
+  </section>
+
+  <!-- ===================== DIAGNOSTIC (guided step 02: Destination) ===================== -->
   <section class="tab" id="tab-diagnostic">
-    <span class="eyebrow">First 50 Discovery</span>
+    <span class="eyebrow">02 &middot; Set Your Destination &middot; First 50 Discovery</span>
     <h2 style="font-size:clamp(24px,3.4vw,34px);margin-top:10px;">Score the opportunity, then build the blueprint.</h2>
     <p class="section-sub" style="max-width:640px;">Answer as you would for a specific client. This isn't collecting demographics &mdash; it's uncovering dormant trust. Your answers automatically draft a Campaign Blueprint below.</p>
 
@@ -521,8 +621,16 @@
         <div class="bp-field"><label>Learning goal</label><textarea id="bp-learning"></textarea></div>
       </div>
 
+      <div class="bp-grid" style="margin-top:8px;border-top:1px dashed var(--border);padding-top:20px;">
+        <div class="bp-field"><label>Destination URL (real, testable link)</label><input type="url" id="bp-destination-url" placeholder="https://"></div>
+        <div class="bp-field"><label>Qualifying outcome</label><select id="bp-outcome"><option>Purchase</option><option>Subscriber</option><option>Utility use</option><option>Booking</option><option>Referral</option><option>Member</option><option>Other</option></select></div>
+        <div class="bp-field"><label>Outcome target</label><input type="number" id="bp-target" value="50" min="1" max="100000"></div>
+      </div>
+      <label class="check-row"><input type="checkbox" id="bp-goal-approved">I approve this goal, its milestone definition, primary ask and measurement.</label>
+      <p class="section-sub" style="margin:4px 0 0;">Changing the goal later clears this approval and moves kit tasks back to review.</p>
+
       <div class="save-row">
-        <button class="btn btn-primary" id="save-btn">Save to Tracker</button>
+        <button class="btn btn-primary" id="save-btn">Save &amp; approve goal</button>
         <button class="btn btn-ghost" id="reset-btn">Reset diagnostic</button>
         <span class="save-msg" id="save-msg"></span>
       </div>
@@ -531,7 +639,7 @@
 
   <!-- ===================== FIRST 50 ===================== -->
   <section class="tab" id="tab-first50">
-    <span class="eyebrow">Stage 1 &middot; Identify</span>
+    <span class="eyebrow">03 &middot; Find Your First 50 &middot; Stage 1 &middot; Identify</span>
     <h2 style="font-size:clamp(24px,3.4vw,34px);margin-top:10px;">Your First 50.</h2>
     <p class="section-sub" style="max-width:640px;">The real names behind the diagnostic &mdash; current and past customers, members, employees, friends and family, partners, and advocates. This is the prioritized audience map Stage 1 produces.</p>
     <p class="section-sub" id="rp-scope-note" style="margin-top:-14px;"></p>
@@ -556,7 +664,8 @@
         <div class="bp-field"><label>Email</label><input type="email" id="rf-email" placeholder="name@email.com"></div>
         <div class="bp-field"><label>Phone</label><input type="tel" id="rf-phone" placeholder="(555) 010-0100"></div>
         <div class="bp-field"><label>Social handle</label><input type="text" id="rf-social" placeholder="@handle or platform"></div>
-        <div class="bp-field"><label>Why they trust you (optional)</label><input type="text" id="rf-notes" placeholder="e.g. weekly regular, refers often"></div>
+        <div class="bp-field"><label>Why they trust you (relationship)</label><input type="text" id="rf-notes" placeholder="e.g. weekly regular, refers often"></div>
+        <div class="bp-field"><label>Preferred channel</label><select id="rf-channel"><option>Text</option><option>Email</option><option>DM</option><option>Phone</option><option>In person</option></select></div>
       </div>
       <div class="save-row">
         <button class="btn btn-primary" id="rf-add-btn">Add to First 50</button>
@@ -570,6 +679,100 @@
         <tbody id="roster-body"></tbody>
       </table>
     </div>
+    <div class="notice">A roster of 50 is preparation completed &mdash; not 50 customers, subscribers or verified outcomes. Work the list in <strong>07 &middot; Make Your Move</strong>.</div>
+  </section>
+
+  <!-- ===================== PREREQUISITES (guided step 04) ===================== -->
+  <section class="tab" id="tab-prereqs">
+    <span class="eyebrow">04 &middot; Gather Your Gear</span>
+    <h2 style="font-size:clamp(24px,3.4vw,34px);margin-top:10px;">Brand prerequisites.</h2>
+    <p class="section-sub" style="max-width:640px;">Supply the actual assets. Your AI model will need these files attached separately &mdash; it can't reconstruct your official logo.</p>
+    <div class="notice" id="prq-noselect">Pick or create a campaign above first.</div>
+    <form id="prereq-form" class="card" style="display:none;">
+      <div class="bp-grid">
+        <div class="bp-field"><label>Official logo &mdash; source link or reference</label><input type="text" id="prq-logo" placeholder="Use your existing official artwork"></div>
+        <div class="bp-field"><label>Approved brand guide &mdash; link or reference</label><input type="text" id="prq-guide"></div>
+      </div>
+      <div class="bp-field"><label>Brand guide text / important rules</label><textarea id="prq-guide-text" placeholder="Approved colors, fonts, copy and asset rules where known."></textarea></div>
+      <label class="check-row"><input type="checkbox" id="prq-utility">This campaign includes an Owned Utility.</label>
+      <div class="bp-field" style="max-width:280px;"><label>Core utility access during First 50</label><select id="prq-utility-access"><option>Open</option><option>Gated</option><option>Not established</option></select></div>
+      <p class="section-sub" style="margin-top:-6px;">If a utility is involved, full core value must precede optional email/account capture.</p>
+      <div class="bp-field"><label>Attach a source file (logo, guide, approved material &mdash; 1&nbsp;MB each / 4&nbsp;MB total)</label><input type="file" id="prq-upload" accept="image/png,image/jpeg,image/webp,application/pdf,text/plain,.md"></div>
+      <div id="prq-attachments"></div>
+      <div class="save-row"><button class="btn btn-primary" type="submit">Save prerequisites</button><span class="save-msg" id="prq-msg"></span></div>
+    </form>
+  </section>
+
+  <!-- ===================== LAUNCH KIT (guided step 05) ===================== -->
+  <section class="tab" id="tab-kit">
+    <span class="eyebrow">05 &middot; Build Your Launch Kit</span>
+    <h2 style="font-size:clamp(24px,3.4vw,34px);margin-top:10px;">Activation assets.</h2>
+    <p class="section-sub" style="max-width:640px;">Required work stays visible. Choose only the additional assets that fit the campaign. A script alone never completes the founder video.</p>
+    <div class="notice" id="kit-noselect">Pick or create a campaign above first.</div>
+    <div id="kit-body" style="display:none;">
+      <form id="kit-select-form" class="card">
+        <h3>Additional campaign assets</h3>
+        <label class="check-row"><input type="checkbox" id="kit-use-card">QR referral card / flyer</label>
+        <label class="check-row"><input type="checkbox" id="kit-use-share">Digital share graphic</label>
+        <button class="btn btn-ghost" type="submit" style="margin-top:10px;">Save asset selection</button>
+      </form>
+      <div id="kit-tasks"></div>
+    </div>
+  </section>
+
+  <!-- ===================== LAUNCH CHECK / READINESS (guided step 06) ===================== -->
+  <section class="tab" id="tab-readiness">
+    <span class="eyebrow">06 &middot; Run Your Launch Check</span>
+    <h2 style="font-size:clamp(24px,3.4vw,34px);margin-top:10px;">Check before you reach out.</h2>
+    <p class="section-sub" style="max-width:640px;">Use actual links and test results. A checked box is not evidence by itself.</p>
+    <div class="notice" id="rdy-noselect">Pick or create a campaign above first.</div>
+    <div id="rdy-blockers"></div>
+    <form id="readiness-form" class="card" style="display:none;">
+      <div id="rdy-checks"></div>
+      <div class="bp-field"><label>Readiness evidence / test notes</label><textarea id="rdy-evidence" placeholder="Tested URLs, QR test, video playback, who approved the kit. No utility? State that here."></textarea></div>
+      <div class="save-row"><button class="btn btn-primary" type="submit">Save readiness checks</button><span class="save-msg" id="rdy-msg"></span></div>
+    </form>
+  </section>
+
+  <!-- ===================== OUTREACH (guided step 07) ===================== -->
+  <section class="tab" id="tab-outreach">
+    <span class="eyebrow">07 &middot; Make Your Move &middot; Stage 3 &middot; Activate</span>
+    <h2 style="font-size:clamp(24px,3.4vw,34px);margin-top:10px;">Make the personal connection.</h2>
+    <p class="section-sub" style="max-width:640px;">This tool helps you prepare and keep track. You send the message and own the relationship &mdash; nothing here sends automatically.</p>
+    <div id="out-readiness-notice"></div>
+    <div class="row" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:16px 0;">
+      <label for="out-filter" style="font-size:12.5px;color:var(--text-faint);">Show</label>
+      <select id="out-filter"><option>All contacts</option><option>Follow-ups due</option><option>Not contacted</option><option>Declined / Do not contact</option></select>
+    </div>
+    <div class="table-wrap">
+      <table class="audience-table roster-table">
+        <thead><tr><th>Name</th><th>Category</th><th>Contact</th><th>Status</th><th></th></tr></thead>
+        <tbody id="out-roster-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== LEARN & AMPLIFY (guided step 08) ===================== -->
+  <section class="tab" id="tab-learn">
+    <span class="eyebrow">08 &middot; Fuel What Works &middot; Stage 5 &middot; Amplify</span>
+    <h2 style="font-size:clamp(24px,3.4vw,34px);margin-top:10px;">Learn before you amplify.</h2>
+    <p class="section-sub" style="max-width:640px;">Document what happened. Distinguish ideas, experiments and measured results.</p>
+    <div class="notice" id="lrn-noselect">Pick or create a campaign above first.</div>
+    <div class="metrics-row" id="lrn-stats" style="display:none;"></div>
+    <form id="learning-form" class="card" style="display:none;">
+      <div class="bp-grid">
+        <div class="bp-field"><label>What happened / friction noticed</label><textarea id="lrn-observation"></textarea></div>
+        <div class="bp-field"><label>Evidence and time period</label><textarea id="lrn-evidence"></textarea></div>
+        <div class="bp-field"><label>Reusable lesson</label><textarea id="lrn-lesson"></textarea></div>
+        <div class="bp-field"><label>One improvement to test</label><textarea id="lrn-change"></textarea></div>
+        <div class="bp-field"><label>Improvement status</label><select id="lrn-status"><option>Proposed</option><option>Experiment in progress</option><option>Implemented — not validated</option><option>Validated with evidence</option><option>Completed / historical</option></select></div>
+        <div class="bp-field"><label>Owner decision / next cycle</label><textarea id="lrn-decision"></textarea></div>
+      </div>
+      <label class="check-row"><input type="checkbox" id="lrn-gate">Owner explicitly approves considering a post-milestone utility gate.</label>
+      <div class="bp-field"><label>Milestone and access-decision evidence</label><textarea id="lrn-gate-evidence" placeholder="This records a decision only; it cannot alter a public utility."></textarea></div>
+      <div class="save-row"><button class="btn btn-primary" type="submit">Save learning</button><span class="save-msg" id="lrn-msg"></span></div>
+    </form>
+    <div class="card"><h3>Proof of work</h3><p>Brand &rarr; Problem &rarr; What We Did &rarr; System/Asset Created &rarr; Result &rarr; Reusable Lesson</p></div>
   </section>
 
   <!-- ===================== CANVASSING ===================== -->
@@ -650,6 +853,12 @@
 
 </div>
 </div><!-- /#app-root -->
+
+<dialog id="fck-dialog">
+  <div class="dialog-head"><h2 id="dialog-title"></h2><button class="dialog-close" id="dialog-close-btn" type="button" aria-label="Close">&times;</button></div>
+  <div id="dialog-body"></div>
+</dialog>
+<div id="fck-toast" role="status"></div>
 
 <script>
 (function(){
@@ -772,6 +981,7 @@
       if(btn.dataset.tab === "tracker"){ renderTracker(dbLoaded ? liveList : undefined); }
       if(btn.dataset.tab === "first50"){ renderRoster(rosterLoaded ? rosterList : undefined); }
       if(btn.dataset.tab === "canvassing"){ initCanvassMap(); }
+      if(typeof fckOnTabOpen === "function") fckOnTabOpen(btn.dataset.tab);
     });
   });
 
@@ -1071,13 +1281,18 @@
   }
 
   function mapCampaignRow(r){
-    return {
+    var m = {
       id: r.id, clientName: r.client_name, audienceLabel: r.audience_label, audienceSize: r.audience_size,
       theAsk: r.the_ask, reasonToAct: r.reason_to_act, mechanism: r.mechanism, destination: r.destination,
       followUp: r.follow_up, tracking: r.tracking, primaryKPI: r.primary_kpi, secondaryKPIs: r.secondary_kpis,
       cadence: r.cadence, learningGoal: r.learning_goal, score: r.score, classification: r.classification,
       status: r.status, isExample: r.is_example, createdAt: r.created_at ? new Date(r.created_at).getTime() : 0
     };
+    // Guided-activation (v2) fields: merged in verbatim under their raw column
+    // names alongside the legacy camelCase aliases above, so both the original
+    // Diagnostic/Tracker code and the new guided-step code can read the same row.
+    Object.keys(r).forEach(function(k){ if(!(k in m)) m[k] = r[k]; });
+    return m;
   }
 
   function fmtScore(score, cls){
@@ -1149,6 +1364,12 @@
       msg.className = "save-msg err";
       return;
     }
+    var destUrl = document.getElementById("bp-destination-url") ? document.getElementById("bp-destination-url").value.trim() : "";
+    if(destUrl && !/^https?:\/\//i.test(destUrl)){
+      msg.textContent = "Destination URL must start with http:// or https://.";
+      msg.className = "save-msg err";
+      return;
+    }
     var record = {
       client_name: clientName,
       audience_label: document.getElementById("bp-audience").value,
@@ -1157,25 +1378,35 @@
       reason_to_act: document.getElementById("bp-reason").value,
       mechanism: document.getElementById("bp-mechanism").value,
       destination: document.getElementById("bp-destination").value,
+      destination_url: destUrl,
       follow_up: document.getElementById("bp-followup").value,
       tracking: document.getElementById("bp-tracking").value,
       primary_kpi: document.getElementById("bp-primarykpi").value,
       secondary_kpis: document.getElementById("bp-secondarykpi").value,
       cadence: document.getElementById("bp-cadence").value,
       learning_goal: document.getElementById("bp-learning").value,
+      outcome_type: document.getElementById("bp-outcome") ? document.getElementById("bp-outcome").value : "Purchase",
+      target_count: document.getElementById("bp-target") ? (Number(document.getElementById("bp-target").value) || 50) : 50,
+      goal_approved: document.getElementById("bp-goal-approved") ? document.getElementById("bp-goal-approved").checked : false,
       score: window.__currentScore || 0,
-      classification: window.__currentClass || "low",
-      status: "Planned", is_example: false,
-      created_by: currentUser ? currentUser.id : null
+      classification: window.__currentClass || "low"
     };
-    sb.from("fck_ai_campaigns").insert(record).then(function(res){
+    var activeId = (typeof activeCampaignId !== "undefined") ? activeCampaignId : null;
+    var req = activeId
+      ? sb.from("fck_ai_campaigns").update(record).eq("id", activeId)
+      : sb.from("fck_ai_campaigns").insert(Object.assign({status:"Planned", is_example:false, created_by: currentUser ? currentUser.id : null}, record)).select().single();
+    req.then(function(res){
       if(res.error){
         msg.textContent = "Couldn't save — try again.";
         msg.className = "save-msg err";
         return;
       }
-      msg.textContent = "Saved to Tracker → check the Campaigns tab.";
+      msg.textContent = activeId ? "Goal saved to this campaign." : "Saved as a new campaign → check All Campaigns.";
       msg.className = "save-msg";
+      if(!activeId && res.data && typeof fckOnCampaignsLoaded === "function"){
+        activeCampaignId = res.data.id;
+      }
+      fetchCampaigns();
     });
   });
 
@@ -1190,6 +1421,7 @@
       if(document.getElementById("tab-tracker").classList.contains("active")){
         renderTracker(liveList);
       }
+      if(typeof fckOnCampaignsLoaded === "function") fckOnCampaignsLoaded();
     });
   }
   // Initial fetch + realtime subscription happen in initData(), once signed in.
@@ -1209,7 +1441,14 @@
       id: r.id, name: r.name, category: r.category, email: r.email, phone: r.phone,
       social: r.social, notes: r.notes, status: r.status, isExample: r.is_example,
       ownerId: r.owner_id,
-      createdAt: r.created_at ? new Date(r.created_at).getTime() : 0
+      createdAt: r.created_at ? new Date(r.created_at).getTime() : 0,
+      // Guided-activation (v2) fields.
+      campaignId: r.campaign_id || null,
+      relationship: r.relationship || '',
+      channel: r.channel || 'Text',
+      nextDate: r.next_date || '',
+      history: Array.isArray(r.history) ? r.history : [],
+      outcomes: Array.isArray(r.outcomes) ? r.outcomes : []
     };
   }
 
@@ -1277,10 +1516,13 @@
         '<td><select class="status-select roster-status" data-id="'+p.id+'">'+
           ["Not contacted","Asked","Responded","Converted"].map(function(s){return '<option'+(p.status===s?' selected':'')+'>'+s+'</option>';}).join("")+
         '</select></td>'+
-        '<td><button class="row-remove" data-id="'+p.id+'" title="Remove">&times;</button></td>'+
+        '<td><button class="btn btn-ghost" style="padding:5px 11px;font-size:11px;" data-open-person="'+p.id+'">Open</button> <button class="row-remove" data-id="'+p.id+'" title="Remove">&times;</button></td>'+
       '</tr>';
     }).join("");
 
+    body.querySelectorAll("[data-open-person]").forEach(function(btn){
+      btn.addEventListener("click", function(){ if(typeof personDialog === "function") personDialog(btn.dataset.openPerson); });
+    });
     body.querySelectorAll(".roster-status").forEach(function(sel){
       sel.addEventListener("change", function(){
         if(sb){ sb.from("fck_ai_first50").update({status: sel.value}).eq("id", sel.dataset.id).then(function(){}); }
@@ -1305,6 +1547,9 @@
       phone: document.getElementById("rf-phone").value.trim(),
       social: document.getElementById("rf-social").value.trim(),
       notes: document.getElementById("rf-notes").value.trim(),
+      relationship: document.getElementById("rf-notes").value.trim(),
+      channel: document.getElementById("rf-channel") ? document.getElementById("rf-channel").value : "Text",
+      campaign_id: (typeof activeCampaignId !== "undefined" ? activeCampaignId : null),
       status: "Not contacted", is_example:false,
       owner_id: currentUser ? currentUser.id : null
     };
@@ -1329,6 +1574,7 @@
       if(document.getElementById("tab-first50").classList.contains("active")){
         renderRoster(rosterList);
       }
+      if(typeof fckOnRosterLoaded === "function") fckOnRosterLoaded();
     });
   }
   // Initial fetch + realtime subscription happen in initData(), once signed in.
@@ -1671,6 +1917,781 @@
       });
     });
   }
+
+  // =================================================================
+  // GUIDED ACTIVATION (v2 workflow layer) — Mission Control + 8 steps
+  // Reuses fck_ai_campaigns / fck_ai_first50 (no new tables). Additive
+  // only: nothing here removes or rewrites the original Diagnostic,
+  // Canvassing, Playbook or Tracker behavior above.
+  // =================================================================
+  var activeCampaignId = null;
+
+  function fckEsc(v){ return String(v==null?"":v).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+  function fckToast(msg){
+    var t = document.getElementById("fck-toast");
+    if(!t) return;
+    t.textContent = msg; t.style.display = "block";
+    clearTimeout(window.__fckToastTimer);
+    window.__fckToastTimer = setTimeout(function(){ t.style.display = "none"; }, 6500);
+  }
+  function fckDialog(title, bodyHtml){
+    var d = document.getElementById("fck-dialog");
+    document.getElementById("dialog-title").textContent = title;
+    document.getElementById("dialog-body").innerHTML = bodyHtml;
+    if(!d.open) d.showModal();
+  }
+  var fckDialogCloseBtn = document.getElementById("dialog-close-btn");
+  if(fckDialogCloseBtn) fckDialogCloseBtn.addEventListener("click", function(){ document.getElementById("fck-dialog").close(); });
+  function fckRun(fn){
+    try {
+      var r = fn();
+      if(r && typeof r.catch === "function") r.catch(function(err){ fckToast(err && err.message ? err.message : "Something went wrong."); });
+    } catch(err){ fckToast(err && err.message ? err.message : "Something went wrong."); }
+  }
+  function fckValidUrl(v){ try { var u = new URL(v); return u.protocol === "http:" || u.protocol === "https:"; } catch(e){ return false; } }
+  function fckLocalDate(){ var d = new Date(); return [d.getFullYear(), String(d.getMonth()+1).padStart(2,"0"), String(d.getDate()).padStart(2,"0")].join("-"); }
+
+  // ---------------------------------------------------------------
+  // Launch Kit task metadata
+  // ---------------------------------------------------------------
+  var FCK_TASKS = [
+    {id:"brand", title:"Brand foundation", required:true, deliverable:"An approved brand guide and the official logo.", checks:["Brand guide reviewed and approved","Official logo supplied"], kind:"foundation"},
+    {id:"founder", title:"Founder video", required:true, deliverable:"A recorded, reviewed founder video with a working share link.", checks:["Founder recorded the video","Message and primary ask approved","Video link opens and playback checked"], kind:"video"},
+    {id:"personal", title:"Personal outreach scripts", required:true, deliverable:"Approved first-message and follow-up examples for the selected channels.", checks:["Sounds like the owner","One primary ask","Links and claims checked"], kind:"scripts"},
+    {id:"destination", title:"Destination & measurement", required:true, deliverable:"A tested destination and a documented way to verify the goal.", checks:["Destination works on mobile","Primary action and attribution tested","Owned Utility core value accessible without mandatory capture during First 50, or no utility involved"], kind:"destination"},
+    {id:"card", title:"QR referral card / flyer", required:false, deliverable:"Approved card/flyer with a real, tested QR code.", checks:["Official artwork and approved copy preserved","Real QR code inserted and scanned","Scan opens the correct mobile destination"], kind:"card"},
+    {id:"share", title:"Digital share graphic", required:false, deliverable:"An approved mobile share graphic and its accompanying link.", checks:["Brand rules and supplied assets preserved","Copy approved and readable on a phone","Destination link checked"], kind:"graphic"}
+  ];
+  var FCK_READY = ["Goal, milestone unit, and primary ask approved","Founder video and activation assets approved","Links, QR codes (if used), and destination tested","Outcome measurement and attribution defined","Contact channels and follow-up plan checked","Owned Utility access follows the First 50 open-access decision"];
+
+  function fckBlankTasks(){
+    var t = {};
+    FCK_TASKS.forEach(function(x){ t[x.id] = {status:"Not started", artifact:"", notes:"", checks:[], reason:""}; });
+    return t;
+  }
+  function fckCampaignTasks(c){
+    var t = (c && c.tasks && typeof c.tasks === "object" && Object.keys(c.tasks).length) ? c.tasks : fckBlankTasks();
+    FCK_TASKS.forEach(function(x){ if(!t[x.id]) t[x.id] = {status:"Not started", artifact:"", notes:"", checks:[], reason:""}; });
+    return t;
+  }
+  function fckActiveTasks(c){
+    var sel = (c && c.selected_assets) || [];
+    return FCK_TASKS.filter(function(t){ return t.required || sel.indexOf(t.id) > -1; });
+  }
+  function fckTaskMissing(c, t){
+    var need = [];
+    if(!c) return ["business profile"];
+    if(!c.client_name) need.push("business name");
+    if(!c.the_ask) need.push("the ask");
+    if((t.id === "card" || t.id === "share" || t.id === "brand") && (!c.logo || !c.guide)) need.push("logo / brand guide");
+    if((t.id === "founder" || t.id === "personal" || t.id === "destination" || t.id === "card" || t.id === "share") && !c.destination_url) need.push("destination URL");
+    return need;
+  }
+  function fckTaskDone(c, t){
+    var tasks = fckCampaignTasks(c), a = tasks[t.id];
+    if(!a || a.status !== "Approved" || !a.artifact || !String(a.artifact).trim()) return false;
+    if(t.id === "founder" && !fckValidUrl(a.artifact)) return false;
+    return t.checks.every(function(ch){ return a.checks.indexOf(ch) > -1; });
+  }
+
+  // ---------------------------------------------------------------
+  // AI prompts (ported from the Guided Activation review package,
+  // adapted to the live fck_ai_campaigns / fck_ai_first50 shape)
+  // ---------------------------------------------------------------
+  var FCK_PROMPT_RULES = "You are assisting a brand owner using Adventure Fuel's FCK AI: Forget Conventional Knowledge, a human-first First 50 activation method. FCK AI is not generic AI automation. Use Identify → Equip → Activate → Capture → Amplify. Treat supplied facts, approved copy, design guides and official assets as constraints. Do not invent brand claims, results, discounts, urgency, personal relationships or endorsements. Distinguish proposed copy from approved copy. Ask one question at a time only when essential information is missing. Keep language natural, practical and specific. One primary call to action per asset. Do not send messages or claim tasks completed. AI-generated QR patterns are not reliable: use a real QR generator, insert the resulting code and test it. During First 50, deliver an Owned Utility's core value before optional email capture. Fifty names identified is not fifty conversions. Results need evidence. Return: prerequisites/files to attach, the proposed output, what to bring back to this tool, and checks for owner approval. Do not claim a check passed without evidence.";
+
+  function fckPromptContext(c){
+    c = c || {};
+    return "BUSINESS: " + (c.client_name || "[missing]") + "\n" +
+      "OWNER: " + (c.owner_name || "[missing]") + "\n" +
+      "OFFER: " + (c.offer || "[missing]") + "\n" +
+      "AUDIENCE: " + (c.audience_label || "[missing]") + "\n" +
+      "VOICE: " + (c.voice || "[not supplied—ask, do not invent]") + "\n" +
+      "APPROVED COPY: " + (c.approved_copy || "[none supplied; label all new copy proposed]") + "\n" +
+      "CAMPAIGN: " + (c.client_name || "") + "\n" +
+      "GOAL: " + (c.target_count || 50) + " toward " + (c.outcome_type || "Purchase") + "\n" +
+      "PRIMARY ASK: " + (c.the_ask || "[missing]") + "\n" +
+      "REASON TO ACT: " + (c.reason_to_act || "[not established; no invented urgency]") + "\n" +
+      "DESTINATION: " + (c.destination_url || c.destination || "[missing]") + "\n" +
+      "MEASUREMENT: " + (c.tracking || "[missing]") + "\n" +
+      "FOUNDER VIDEO OUTPUT: " + ((fckCampaignTasks(c).founder || {}).artifact || "[not supplied]") + "\n" +
+      "BRAND GUIDE: " + (c.guide || "[missing]") + "\n" +
+      "OFFICIAL LOGO: " + (c.logo || "[missing]") + "\n" +
+      "GUIDE TEXT: " + (c.guide_text || "[attach the actual guide in your AI model]") + "\n" +
+      "OWNED UTILITY: " + (c.utility ? "Yes; " + (c.utility_access || "Open") : "Not selected") + "\n" +
+      "ATTACHMENTS TO SUPPLY MANUALLY: " + ((c.attachments || []).map(function(a){ return a.name; }).join(", ") || "Official logo and applicable brand guide when producing visuals");
+  }
+  var FCK_PROMPT_DIRECTIONS = {
+    goal: "Interview me to define one activation goal and what counts toward the First 50 milestone. Distinguish the relationship roster from the outcome target. Recommend the primary ask, destination, verification method, and minimum useful follow-up. Do not assume a referral, purchase or signup is the right goal. Return a concise campaign brief for my approval.",
+    identify: "Help me identify 50 real relationships appropriate for this campaign. Walk through current/past customers, community, friends/family, partners, team and advocates. Ask about actual people and why the offer is relevant. Never fabricate names or contact details. Return a prioritized table using name,category,relationship,email,phone,social,channel with blanks for unknown fields.",
+    foundation: "Help me prepare a practical brand foundation. First identify missing source assets and approved decisions. Use the official logo supplied; do not create a replacement. Develop a proposed concise guide covering audience, voice, approved copy, color, typography, imagery, asset usage and boundaries. Separate established rules from proposals. Return a checklist for owner approval.",
+    video: "Help me create the REQUIRED founder activation video. Use the business profile and campaign ask. Interview me for my true founder story, why I started, whom I serve, and why this matters to them. Write a short natural spoken draft with one primary CTA, followed by a simple recording plan, required assets, captions and review checklist. Do not invent my story or imply sales/results. Keep any script proposed until I approve it. A script is not completion: I must record, review and provide the video link.",
+    scripts: "Draft proposed personal outreach and respectful follow-up examples for each selected channel. Make the ask appropriate to the relationship and campaign goal. Include a first message, a reply to interest, a response to a question/objection, a gentle no-reply follow-up and a gracious decline acknowledgment. No pressure, fake familiarity or mass-blast language. State where the founder video fits naturally. Never treat a referral as the default goal.",
+    destination: "Help me check this campaign destination and conversion-event map before outreach. List links and actions to test on mobile, attribution method, and what evidence verifies the outcome. If an Owned Utility is involved, the full core value must be accessible without mandatory email/account capture during First 50. Label untested items and explain how I can test them; do not claim to have tested a page you cannot access.",
+    card: "Develop a proposed QR referral card or flyer for this campaign. Before designing, require the official logo, approved brand guide, approved copy/offer, exact destination and intended size/format. Identify any missing prerequisites. Use the supplied assets intact; do not reconstruct logos. Give a concise layout and proposed copy for approval, a design-model prompt listing files to attach, and print/export requirements. Generate the QR with a genuine QR tool from the exact URL, not image-generation lettering/patterns; verify the decoded URL and scan the exported design on a phone. One primary CTA. Do not claim the QR is tested until a real test occurs.",
+    graphic: "Develop one mobile share graphic for this campaign. Require official logo, applicable design guide, approved copy, destination and intended placement/format. Give a clean layout, a production prompt identifying the exact attachments, and a mobile readability/brand QA checklist. Preserve supplied product art, logo and photos. Label any new copy proposed. Do not fill space with decorative slogans.",
+    readiness: "Review the provided campaign information and asset evidence against the FCK AI launch checklist. Separate Verified, Issue, Blocked and Not Applicable, with reasons/evidence. The founder video is mandatory and cannot be skipped. A checked box or tracker does not prove the asset works. Identify the next concrete action and do not certify unverified work.",
+    learning: "Review the actual results and observations supplied. Separate proposed ideas, experiments, validated results and historical work. Report Brand → Problem → What We Did → System/Asset Created → Result → Reusable Lesson. Never infer conversion or causation from a plan, clicks, assets, or a tracker. Recommend one improvement. Amplify proven insights into content/digital work only where evidence supports it; do not default to paid ads. Reaching a milestone must not automatically enable a utility gate: propose any transition for explicit owner approval."
+  };
+  function fckStats(c){
+    var people = (rosterList || []).filter(function(p){ return !c || !p.campaignId || p.campaignId === c.id; });
+    var outcomeType = (c && c.outcome_type) || "Purchase", rev = (c && c.revision) || 1;
+    var verifiedPeople = people.filter(function(p){
+      return (p.outcomes || []).some(function(o){ return (o.campaignRevision || 1) === rev && o.type === outcomeType && o.verified && o.evidence; });
+    });
+    return {
+      identified: people.length,
+      contacted: people.filter(function(p){ return (p.history || []).some(function(h){ return h.type === "Sent"; }); }).length,
+      replied: people.filter(function(p){ return (p.history || []).some(function(h){ return h.type === "Reply"; }); }).length,
+      verified: verifiedPeople.length,
+      target: Math.max(1, Number(c && c.target_count) || 50)
+    };
+  }
+  function fckPrompt(key, c, person){
+    c = c || {};
+    if(key === "person" && person){
+      var extra = "\nPERSON: " + person.name + "\nCATEGORY: " + person.category + "\nACTUAL RELATIONSHIP: " + (person.relationship || "") +
+        "\nCHANNEL: " + (person.channel || "Text") + "\nSTATUS: " + person.status + "\nNOTES: " + (person.notes || "") +
+        "\nCONVERSATION: " + JSON.stringify((person.history || []).map(function(h){ return {date:h.date, type:h.type, note:h.note}; })) +
+        "\nDO NOT CONTACT: " + ((person.status === "Do not contact" || person.status === "Declined") ? "Yes—do not draft new outreach" : "No recorded stop request") + "\n";
+      return FCK_PROMPT_RULES + "\n\n" + fckPromptContext(c) + extra + "\nTASK: Draft one proposed personal message for the next appropriate step based on the actual conversation. If declined or do-not-contact, acknowledge the stop and do not create another pitch. Include one clear ask and reference the founder video only when relevant. Keep it in the owner's voice; do not sound automated.";
+    }
+    var tail = "";
+    if(key === "readiness") tail = "\nKIT OUTPUTS AND CHECKS: " + JSON.stringify(fckCampaignTasks(c)) + "\nREADINESS EVIDENCE: " + JSON.stringify(c.readiness || {});
+    if(key === "learning") tail = "\nACTUAL COUNTS: " + JSON.stringify(fckStats(c)) + "\nNOTES: " + JSON.stringify(c.learning || {});
+    return FCK_PROMPT_RULES + "\n\n" + fckPromptContext(c) + "\n\nTASK: " + (FCK_PROMPT_DIRECTIONS[key] || "Help complete this task.") + tail;
+  }
+  function promptDialog(key, c, person){
+    var text = fckPrompt(key, c, person);
+    fckDialog("Copy this prompt into your AI model",
+      '<p class="section-sub">Attach the actual source files separately. Prompts and copy remain proposals until you approve them. This app does not call an AI model or send messages.</p>' +
+      '<textarea id="prompt-text" readonly class="bp-field" style="width:100%;">' + fckEsc(text) + "</textarea>" +
+      '<div class="save-row"><button class="btn btn-primary" id="copy-prompt-btn" type="button">Copy prompt</button></div>');
+    var btn = document.getElementById("copy-prompt-btn");
+    if(btn) btn.addEventListener("click", function(){
+      var ta = document.getElementById("prompt-text");
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(ta.value).then(function(){ fckToast("Prompt copied."); }, function(){ ta.select(); fckToast("Copy unavailable — text selected."); });
+      } else { ta.select(); fckToast("Copy unavailable — text selected."); }
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // Blockers / next step (mirrors the review package's launch gate)
+  // ---------------------------------------------------------------
+  function fckCampaignPeople(c){ return (rosterList || []).filter(function(p){ return !c || !p.campaignId || p.campaignId === c.id; }); }
+  function fckBlockers(c){
+    if(!c) return ["Pick or create a campaign to begin."];
+    var b = [];
+    if(!c.client_name) b.push("Business: name");
+    if(!c.owner_name) b.push("Business: owner");
+    if(!c.audience_label) b.push("Business: audience");
+    if(!c.offer) b.push("Business: offer");
+    if(!c.the_ask) b.push("Goal: the ask");
+    if(!c.destination_url || !fckValidUrl(c.destination_url)) b.push("Use a valid destination URL");
+    if(!c.tracking) b.push("Goal: measurement");
+    if(!Number.isInteger(Number(c.target_count)) || Number(c.target_count) < 1) b.push("Define a valid outcome target");
+    if(!c.goal_approved) b.push("Approve the campaign goal");
+    if(!fckCampaignPeople(c).length) b.push("Add the first relationship (all 50 are not required before starting)");
+    fckActiveTasks(c).forEach(function(t){ if(!fckTaskDone(c, t)) b.push("Approve: " + t.title); });
+    if(c.utility && c.utility_access !== "Open") b.push("Owned Utility must deliver core value without mandatory capture during First 50");
+    var checks = (c.readiness && c.readiness.checks) || [];
+    FCK_READY.forEach(function(x){ if(checks.indexOf(x) === -1) b.push(x); });
+    if(!c.readiness || !c.readiness.evidence || !String(c.readiness.evidence).trim()) b.push("Record readiness evidence");
+    return b;
+  }
+  var FCK_STEP_TABS = ["foundation","diagnostic","first50","prereqs","kit","readiness","outreach","learn"];
+  var FCK_STEP_LABELS = {foundation:"Fuel Your Foundation", diagnostic:"Set Your Destination", first50:"Find Your First 50", prereqs:"Gather Your Gear", kit:"Build Your Launch Kit", readiness:"Run Your Launch Check", outreach:"Make Your Move", learn:"Fuel What Works"};
+  var FCK_STEP_DESC = {foundation:"Define who you are and who you serve.", diagnostic:"Choose the goal and what counts as success.", first50:"Identify the people who already know and trust you.", prereqs:"Bring your logo, brand guide and approved material.", kit:"Create your founder video, scripts and supporting assets.", readiness:"Verify everything works before reaching out.", outreach:"Connect personally, follow up and capture outcomes.", learn:"Review the evidence, refine and build on what works."};
+  function fckNextStep(c){
+    if(!c) return "foundation";
+    if(!c.client_name || !c.owner_name || !c.audience_label || !c.offer) return "foundation";
+    if(!c.goal_approved || !c.the_ask || !c.destination_url || !c.tracking) return "diagnostic";
+    if(!fckCampaignPeople(c).length) return "first50";
+    if(!c.guide || !c.logo) return "prereqs";
+    if(fckActiveTasks(c).some(function(t){ return !fckTaskDone(c, t); })) return "kit";
+    if(fckBlockers(c).length) return "readiness";
+    var st = fckStats(c);
+    if(st.verified < st.target) return "outreach";
+    return "learn";
+  }
+  function fckOpenStep(tabId){
+    var btn = document.querySelector('nav.tabs button[data-tab="' + tabId + '"]');
+    if(btn) btn.click();
+  }
+
+  // ---------------------------------------------------------------
+  // Active campaign + picker
+  // ---------------------------------------------------------------
+  function fckGetCampaign(id){ return (liveList || []).find(function(c){ return c.id === id; }); }
+  function fckActiveCampaign(){ return activeCampaignId ? fckGetCampaign(activeCampaignId) : null; }
+  function fckUpdateCampaign(patch){
+    var c = fckActiveCampaign();
+    if(!c || !sb) return Promise.reject(new Error("No active campaign."));
+    return sb.from("fck_ai_campaigns").update(patch).eq("id", c.id).then(function(res){
+      if(res.error) throw new Error(res.error.message);
+      Object.keys(patch).forEach(function(k){ c[k] = patch[k]; });
+      return c;
+    });
+  }
+  function fckCreateCampaign(name){
+    if(!sb) return Promise.reject(new Error("Not available in this view."));
+    var record = {
+      client_name: name, status: "Planned", is_example: false, score: 0, classification: "low",
+      created_by: currentUser ? currentUser.id : null
+    };
+    return sb.from("fck_ai_campaigns").insert(record).select().single().then(function(res){
+      if(res.error) throw new Error(res.error.message);
+      var row = mapCampaignRow(res.data);
+      liveList.unshift(row);
+      activeCampaignId = row.id;
+      return row;
+    });
+  }
+  function fckRenderCampaignPicker(){
+    var sel = document.getElementById("campaign-picker");
+    if(!sel) return;
+    if(!dbLoaded){ sel.innerHTML = '<option value="">Loading…</option>'; return; }
+    if(!liveList.length){
+      sel.innerHTML = '<option value="">No campaigns yet — use + New</option>';
+      activeCampaignId = null;
+      return;
+    }
+    if(!activeCampaignId || !fckGetCampaign(activeCampaignId)){
+      var mine = liveList.filter(function(c){ return c.created_by === (currentUser && currentUser.id); });
+      activeCampaignId = (mine[0] || liveList[0]).id;
+    }
+    sel.innerHTML = liveList.map(function(c){
+      return '<option value="' + c.id + '"' + (c.id === activeCampaignId ? " selected" : "") + ">" + fckEsc(c.clientName || "Untitled") + "</option>";
+    }).join("");
+  }
+  function fckOnCampaignsLoaded(){
+    fckRenderCampaignPicker();
+    fckRenderAllGuidedViews();
+  }
+  function fckOnRosterLoaded(){
+    fckRenderAllGuidedViews();
+  }
+  function fckRenderAllGuidedViews(){
+    renderMissionSnapshot();
+    if(document.getElementById("tab-foundation") && document.getElementById("tab-foundation").classList.contains("active")) renderFoundation();
+    if(document.getElementById("tab-prereqs") && document.getElementById("tab-prereqs").classList.contains("active")) renderPrereqs();
+    if(document.getElementById("tab-kit") && document.getElementById("tab-kit").classList.contains("active")) renderKit();
+    if(document.getElementById("tab-readiness") && document.getElementById("tab-readiness").classList.contains("active")) renderReadiness();
+    if(document.getElementById("tab-outreach") && document.getElementById("tab-outreach").classList.contains("active")) renderOutreach();
+    if(document.getElementById("tab-learn") && document.getElementById("tab-learn").classList.contains("active")) renderLearn();
+    if(document.getElementById("tab-diagnostic") && document.getElementById("tab-diagnostic").classList.contains("active")) fckPrefillDiagnostic();
+  }
+  function fckOnTabOpen(tabId){
+    if(tabId === "overview") renderMissionSnapshot();
+    if(tabId === "foundation") renderFoundation();
+    if(tabId === "diagnostic") fckPrefillDiagnostic();
+    if(tabId === "prereqs") renderPrereqs();
+    if(tabId === "kit") renderKit();
+    if(tabId === "readiness") renderReadiness();
+    if(tabId === "outreach") renderOutreach();
+    if(tabId === "learn") renderLearn();
+  }
+  var campaignPickerEl = document.getElementById("campaign-picker");
+  if(campaignPickerEl) campaignPickerEl.addEventListener("change", function(){
+    activeCampaignId = campaignPickerEl.value || null;
+    fckRenderAllGuidedViews();
+  });
+  var newCampaignBtn = document.getElementById("new-campaign-btn");
+  if(newCampaignBtn) newCampaignBtn.addEventListener("click", function(){
+    fckRun(function(){
+      var name = prompt("Business / campaign name");
+      if(!name || !name.trim()) return;
+      return fckCreateCampaign(name.trim()).then(function(){
+        fckRenderCampaignPicker();
+        fckRenderAllGuidedViews();
+        fckToast("Campaign created. Start with 01 · Foundation.");
+      });
+    });
+  });
+
+  // ---------------------------------------------------------------
+  // Mission Control snapshot
+  // ---------------------------------------------------------------
+  function renderMissionSnapshot(){
+    var titleEl = document.getElementById("ms-title"), subEl = document.getElementById("ms-sub"),
+        statusEl = document.getElementById("ms-status"), factsEl = document.getElementById("ms-facts"),
+        nextEl = document.getElementById("ms-next"), blockersEl = document.getElementById("ms-blockers"),
+        dueEl = document.getElementById("ms-due");
+    if(!titleEl) return;
+    var c = fckActiveCampaign();
+    if(!c){
+      titleEl.textContent = "Set your activation goal.";
+      subEl.textContent = "Pick or create a campaign above to see your next move.";
+      statusEl.textContent = "No campaign selected"; statusEl.className = "pill-status";
+      factsEl.innerHTML = ""; nextEl.style.display = "none"; blockersEl.innerHTML = ""; dueEl.innerHTML = "";
+      return;
+    }
+    var st = fckStats(c), blocked = fckBlockers(c), next = fckNextStep(c);
+    var kit = fckActiveTasks(c), approved = kit.filter(function(t){ return fckTaskDone(c, t); });
+    var founderTask = FCK_TASKS[1], founderDone = fckTaskDone(c, founderTask);
+    var due = fckCampaignPeople(c).filter(function(p){ return p.nextDate && p.nextDate <= fckLocalDate() && ["Declined","Do not contact"].indexOf(p.status) === -1; });
+
+    titleEl.textContent = c.clientName || "Untitled campaign";
+    subEl.textContent = c.target_count ? (st.target + " " + (c.outcome_type || "Purchase") + "(s)") : "Define the outcome and what counts before activation.";
+    statusEl.textContent = blocked.length ? "Preparation incomplete" : "Ready for personal outreach";
+    statusEl.className = "pill-status" + (blocked.length ? "" : " good");
+
+    factsEl.innerHTML =
+      '<div><dt class="dk">Owner</dt><dd class="dv">' + fckEsc(c.owner_name || "Not established") + "</dd></div>" +
+      '<div><dt class="dk">Primary ask</dt><dd class="dv">' + fckEsc(c.the_ask || "Not established") + "</dd></div>" +
+      '<div><dt class="dk">Kit approvals</dt><dd class="dv">' + approved.length + " / " + kit.length + " required or selected outputs</dd></div>" +
+      '<div><dt class="dk">Founder video</dt><dd class="dv">' + (founderDone ? "Approved with playback check recorded" : "Required — not yet approved") + "</dd></div>" +
+      '<div><dt class="dk">Follow-ups due</dt><dd class="dv">' + due.length + (due.length ? " — review below" : " recorded") + "</dd></div>" +
+      '<div><dt class="dk">Outcome milestone</dt><dd class="dv">' + st.verified + " / " + st.target + " verified</dd></div>";
+
+    nextEl.style.display = "flex";
+    document.getElementById("ms-next-title").textContent = FCK_STEP_LABELS[next];
+    document.getElementById("ms-next-desc").textContent = FCK_STEP_DESC[next];
+    var nextBtn = document.getElementById("ms-next-btn");
+    nextBtn.onclick = function(){ fckOpenStep(next); };
+
+    blockersEl.innerHTML = blocked.length
+      ? '<div class="notice"><strong>' + blocked.length + " launch check(s) still need attention</strong><ul>" + blocked.map(function(b){ return "<li>" + fckEsc(b) + "</li>"; }).join("") + "</ul></div>"
+      : '<div class="notice good"><strong>Readiness is based on the approvals and evidence recorded here.</strong> It does not prove conversions.</div>';
+
+    dueEl.innerHTML = due.length
+      ? "<h3 style=\"font-size:14px;margin:14px 0 6px;\">Conversations to revisit</h3>" + due.slice(0,3).map(function(p){
+          return '<div class="due-row"><span>' + fckEsc(p.name) + " · " + fckEsc(p.nextDate) + "</span><button class=\"btn btn-ghost\" style=\"padding:5px 11px;font-size:11px;\" data-open-due=\"" + p.id + "\">Open</button></div>";
+        }).join("") + (due.length > 3 ? '<p class="section-sub" style="margin-top:8px;">' + (due.length - 3) + " more due — review them in 07 · Make Your Move.</p>" : "")
+      : "";
+    dueEl.querySelectorAll("[data-open-due]").forEach(function(btn){
+      btn.addEventListener("click", function(){ personDialog(btn.dataset.openDue); });
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // Step 01 — Foundation (nav buttons etc. are wired generically via
+  // the tab-click handler above; no per-tab wiring needed here).
+  // ---------------------------------------------------------------
+  function renderFoundation(){
+    var noSel = document.getElementById("fnd-noselect"), form = document.getElementById("foundation-form");
+    var c = fckActiveCampaign();
+    if(!c){ noSel.style.display = "block"; form.style.display = "none"; return; }
+    noSel.style.display = "none"; form.style.display = "block";
+    document.getElementById("fnd-business").value = c.clientName || "";
+    document.getElementById("fnd-owner").value = c.owner_name || "";
+    document.getElementById("fnd-website").value = c.website || "";
+    document.getElementById("fnd-audience").value = c.audienceLabel || "";
+    document.getElementById("fnd-offer").value = c.offer || "";
+    document.getElementById("fnd-voice").value = c.voice || "";
+    document.getElementById("fnd-approved").value = c.approved_copy || "";
+  }
+  var foundationForm = document.getElementById("foundation-form");
+  if(foundationForm) foundationForm.addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var msg = document.getElementById("fnd-msg");
+    var business = document.getElementById("fnd-business").value.trim();
+    if(!business){ msg.textContent = "Add a business name."; msg.className = "save-msg err"; return; }
+    fckRun(function(){
+      return fckUpdateCampaign({
+        client_name: business,
+        owner_name: document.getElementById("fnd-owner").value.trim(),
+        website: document.getElementById("fnd-website").value.trim(),
+        audience_label: document.getElementById("fnd-audience").value.trim(),
+        offer: document.getElementById("fnd-offer").value.trim(),
+        voice: document.getElementById("fnd-voice").value.trim(),
+        approved_copy: document.getElementById("fnd-approved").value.trim()
+      }).then(function(){
+        msg.textContent = "Saved."; msg.className = "save-msg";
+        fckRenderCampaignPicker();
+        fckRenderAllGuidedViews();
+      });
+    });
+  });
+
+  // ---------------------------------------------------------------
+  // Step 02 — prefill Diagnostic / blueprint from the active campaign
+  // ---------------------------------------------------------------
+  function fckPrefillDiagnostic(){
+    var c = fckActiveCampaign();
+    if(!c) return;
+    var map = {"bp-client": c.clientName, "bp-audience": c.audienceLabel, "bp-size": c.audienceSize, "bp-ask": c.theAsk,
+      "bp-reason": c.reasonToAct, "bp-mechanism": c.mechanism, "bp-destination": c.destination, "bp-followup": c.followUp,
+      "bp-tracking": c.tracking, "bp-primarykpi": c.primaryKPI, "bp-secondarykpi": c.secondaryKPIs, "bp-cadence": c.cadence,
+      "bp-learning": c.learningGoal};
+    Object.keys(map).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el && map[id]) { el.value = map[id]; el.dataset.touched = "1"; }
+    });
+    if(document.getElementById("bp-destination-url")) document.getElementById("bp-destination-url").value = c.destination_url || "";
+    if(document.getElementById("bp-outcome")) document.getElementById("bp-outcome").value = c.outcome_type || "Purchase";
+    if(document.getElementById("bp-target")) document.getElementById("bp-target").value = c.target_count || 50;
+    if(document.getElementById("bp-goal-approved")) document.getElementById("bp-goal-approved").checked = !!c.goal_approved;
+  }
+
+  // ---------------------------------------------------------------
+  // Step 04 — Prerequisites
+  // ---------------------------------------------------------------
+  function renderPrereqs(){
+    var noSel = document.getElementById("prq-noselect"), form = document.getElementById("prereq-form");
+    var c = fckActiveCampaign();
+    if(!c){ noSel.style.display = "block"; form.style.display = "none"; return; }
+    noSel.style.display = "none"; form.style.display = "block";
+    document.getElementById("prq-logo").value = c.logo || "";
+    document.getElementById("prq-guide").value = c.guide || "";
+    document.getElementById("prq-guide-text").value = c.guide_text || "";
+    document.getElementById("prq-utility").checked = !!c.utility;
+    document.getElementById("prq-utility-access").value = c.utility_access || "Open";
+    var atts = c.attachments || [];
+    document.getElementById("prq-attachments").innerHTML = atts.map(function(a, i){
+      return '<div class="attachment-row"><span>' + fckEsc(a.name) + " · " + Math.ceil((a.size||0)/1024) + " KB</span>" +
+        '<button type="button" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;" data-remove-att="' + i + '">Remove</button></div>';
+    }).join("");
+    document.getElementById("prq-attachments").querySelectorAll("[data-remove-att]").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        fckRun(function(){
+          var idx = Number(btn.dataset.removeAtt);
+          var next = (c.attachments || []).slice(); next.splice(idx, 1);
+          return fckUpdateCampaign({attachments: next}).then(function(){ renderPrereqs(); fckToast("Attachment removed."); });
+        });
+      });
+    });
+  }
+  var prereqForm = document.getElementById("prereq-form");
+  if(prereqForm) prereqForm.addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var msg = document.getElementById("prq-msg");
+    fckRun(function(){
+      return fckUpdateCampaign({
+        logo: document.getElementById("prq-logo").value.trim(),
+        guide: document.getElementById("prq-guide").value.trim(),
+        guide_text: document.getElementById("prq-guide-text").value.trim(),
+        utility: document.getElementById("prq-utility").checked,
+        utility_access: document.getElementById("prq-utility-access").value
+      }).then(function(){ msg.textContent = "Saved."; msg.className = "save-msg"; fckRenderAllGuidedViews(); });
+    });
+  });
+  var prqUpload = document.getElementById("prq-upload");
+  if(prqUpload) prqUpload.addEventListener("change", function(ev){
+    fckRun(function(){
+      var file = ev.target.files[0];
+      if(!file) return;
+      var c = fckActiveCampaign();
+      if(!c) throw new Error("Pick or create a campaign first.");
+      var allowed = ["image/png","image/jpeg","image/webp","application/pdf","text/plain","text/markdown",""];
+      if(allowed.indexOf(file.type) === -1 || !/\.(png|jpe?g|webp|pdf|txt|md)$/i.test(file.name)) throw new Error("Use PNG, JPG, WebP, PDF, TXT or Markdown.");
+      var existing = c.attachments || [];
+      var totalSize = existing.reduce(function(n, a){ return n + (a.size||0); }, 0);
+      if(file.size > 1000000 || totalSize + file.size > 4000000) throw new Error("Attachment limit reached (1 MB each / 4 MB total). Use a source link for large files.");
+      return new Promise(function(resolve, reject){
+        var r = new FileReader();
+        r.onload = function(){ resolve(r.result); };
+        r.onerror = function(){ reject(new Error("Could not read file.")); };
+        r.readAsDataURL(file);
+      }).then(function(data){
+        var next = existing.concat([{name: file.name, size: file.size, type: file.type || "text/plain", data: data}]);
+        return fckUpdateCampaign({attachments: next});
+      }).then(function(){ prqUpload.value = ""; renderPrereqs(); fckToast("Attachment added."); });
+    });
+  });
+
+  // ---------------------------------------------------------------
+  // Step 05 — Launch Kit
+  // ---------------------------------------------------------------
+  function renderKit(){
+    var noSel = document.getElementById("kit-noselect"), body = document.getElementById("kit-body");
+    var c = fckActiveCampaign();
+    if(!c){ noSel.style.display = "block"; body.style.display = "none"; return; }
+    noSel.style.display = "none"; body.style.display = "block";
+    document.getElementById("kit-use-card").checked = (c.selected_assets || []).indexOf("card") > -1;
+    document.getElementById("kit-use-share").checked = (c.selected_assets || []).indexOf("share") > -1;
+    var tasks = fckCampaignTasks(c);
+    document.getElementById("kit-tasks").innerHTML = fckActiveTasks(c).map(function(t){
+      var a = tasks[t.id], missing = fckTaskMissing(c, t), done = fckTaskDone(c, t);
+      return '<div class="card task-card"><div><p class="eyebrow task-eyebrow">' + (t.required ? "REQUIRED" : "SELECTED ASSET") + "</p><h3>" + fckEsc(t.title) + "</h3><p>" + fckEsc(t.deliverable) + "</p>" +
+        '<span class="pill-status' + (done ? " good" : "") + '">' + fckEsc(a.status) + "</span>" +
+        '<p class="task-meta">' + (missing.length ? "Missing prerequisites: " + fckEsc(missing.join(", ")) : "Prerequisites recorded. Verify the actual files before creating.") + "</p></div>" +
+        '<div class="task-actions"><button class="btn btn-primary" data-task-open="' + t.id + '" style="padding:8px 16px;font-size:12px;">Work on this &rarr;</button></div></div>';
+    }).join("");
+    document.getElementById("kit-tasks").querySelectorAll("[data-task-open]").forEach(function(btn){
+      btn.addEventListener("click", function(){ taskDialog(btn.dataset.taskOpen); });
+    });
+  }
+  var kitSelectForm = document.getElementById("kit-select-form");
+  if(kitSelectForm) kitSelectForm.addEventListener("submit", function(ev){
+    ev.preventDefault();
+    fckRun(function(){
+      var sel = [];
+      if(document.getElementById("kit-use-card").checked) sel.push("card");
+      if(document.getElementById("kit-use-share").checked) sel.push("share");
+      return fckUpdateCampaign({selected_assets: sel}).then(function(){ renderKit(); fckToast("Asset selection saved."); });
+    });
+  });
+  function taskDialog(id){
+    var c = fckActiveCampaign();
+    if(!c) return;
+    var t = FCK_TASKS.find(function(x){ return x.id === id; });
+    var tasks = fckCampaignTasks(c), a = tasks[id], missing = fckTaskMissing(c, t);
+    fckDialog(t.title,
+      "<p>" + fckEsc(t.deliverable) + "</p>" +
+      '<div class="notice">' + (missing.length ? "Before you start: " + fckEsc(missing.join(", ")) : "Source references are recorded. Attach the original files when using the prompt.") + "</div>" +
+      '<button type="button" class="btn btn-ghost" id="task-prompt-btn" ' + (missing.length ? "disabled" : "") + " style=\"margin-bottom:16px;\">Copy-and-paste AI prompt &#8599;</button>" +
+      '<form id="task-form">' +
+        '<div class="bp-field"><label>Task state</label><select id="task-status">' + ["Not started","In progress","Blocked","Ready for review","Approved"].map(function(s){ return "<option" + (a.status===s?" selected":"") + ">" + s + "</option>"; }).join("") + "</select></div>" +
+        '<div class="bp-field"><label>Output link, file reference, or approved deliverable text</label><textarea id="task-artifact">' + fckEsc(a.artifact) + "</textarea></div>" +
+        '<div class="bp-field"><label>Review notes / evidence</label><textarea id="task-notes">' + fckEsc(a.notes) + "</textarea></div>" +
+        '<div class="bp-field"><label>Blocked reason / missing prerequisite</label><textarea id="task-reason">' + fckEsc(a.reason) + "</textarea></div>" +
+        "<h3 style=\"font-size:14px;margin:16px 0 4px;\">Completion checks</h3>" +
+        t.checks.map(function(ch, i){ return '<label class="check-row"><input type="checkbox" id="tc-' + i + '" ' + (a.checks.indexOf(ch) > -1 ? "checked" : "") + ">" + fckEsc(ch) + "</label>"; }).join("") +
+        '<div class="save-row" style="margin-top:14px;"><button class="btn btn-primary" type="submit">Save task</button></div>' +
+      "</form>");
+    var promptBtn = document.getElementById("task-prompt-btn");
+    if(promptBtn) promptBtn.addEventListener("click", function(){ promptDialog(t.kind, c); });
+    document.getElementById("task-form").addEventListener("submit", function(ev){
+      ev.preventDefault();
+      fckRun(function(){
+        var v = {
+          status: document.getElementById("task-status").value,
+          artifact: document.getElementById("task-artifact").value.trim(),
+          notes: document.getElementById("task-notes").value.trim(),
+          reason: document.getElementById("task-reason").value.trim(),
+          checks: t.checks.filter(function(ch, i){ return document.getElementById("tc-" + i).checked; })
+        };
+        if(v.status === "Blocked" && !v.reason) throw new Error("Add the blocked reason.");
+        if(v.status === "Approved" && (missing.length || !v.artifact || v.checks.length !== t.checks.length)) throw new Error("Approval needs prerequisites, an output, and every completion check.");
+        if(id === "founder" && v.status === "Approved" && !fckValidUrl(v.artifact)) throw new Error("Founder video requires a playable share URL, not only a script or filename.");
+        var nextTasks = fckCampaignTasks(c); nextTasks[id] = v;
+        return fckUpdateCampaign({tasks: nextTasks}).then(function(){
+          document.getElementById("fck-dialog").close();
+          renderKit(); fckToast("Task saved.");
+        });
+      });
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // Step 06 — Readiness / Launch Check
+  // ---------------------------------------------------------------
+  function renderReadiness(){
+    var noSel = document.getElementById("rdy-noselect"), form = document.getElementById("readiness-form");
+    var c = fckActiveCampaign();
+    var blockersWrap = document.getElementById("rdy-blockers");
+    if(!c){ noSel.style.display = "block"; form.style.display = "none"; blockersWrap.innerHTML = ""; return; }
+    noSel.style.display = "none"; form.style.display = "block";
+    var b = fckBlockers(c);
+    blockersWrap.innerHTML = b.length
+      ? '<div class="notice"><strong>' + b.length + " readiness item(s) remain.</strong><ul>" + b.map(function(x){ return "<li>" + fckEsc(x) + "</li>"; }).join("") + "</ul></div>"
+      : '<div class="notice good"><strong>Ready for personal outreach.</strong> Start with a manageable batch.</div>';
+    var checks = (c.readiness && c.readiness.checks) || [];
+    document.getElementById("rdy-checks").innerHTML = FCK_READY.map(function(x, i){
+      return '<label class="check-row"><input type="checkbox" id="rdy-c-' + i + '" ' + (checks.indexOf(x) > -1 ? "checked" : "") + ">" + fckEsc(x) + "</label>";
+    }).join("");
+    document.getElementById("rdy-evidence").value = (c.readiness && c.readiness.evidence) || "";
+  }
+  var readinessForm = document.getElementById("readiness-form");
+  if(readinessForm) readinessForm.addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var msg = document.getElementById("rdy-msg");
+    fckRun(function(){
+      var checks = FCK_READY.filter(function(x, i){ return document.getElementById("rdy-c-" + i).checked; });
+      var evidence = document.getElementById("rdy-evidence").value.trim();
+      return fckUpdateCampaign({readiness: {checks: checks, evidence: evidence}}).then(function(){
+        msg.textContent = "Saved."; msg.className = "save-msg";
+        renderReadiness(); renderMissionSnapshot();
+      });
+    });
+  });
+
+  // ---------------------------------------------------------------
+  // Step 07 — Outreach (shared person table + conversation dialog)
+  // ---------------------------------------------------------------
+  function fckPersonRows(list){
+    if(!list.length) return '<tr><td colspan="5" class="empty-state">No one to show yet.</td></tr>';
+    return list.map(function(p){
+      var contactLines = [];
+      if(p.email) contactLines.push('<div class="mono">' + fckEsc(p.email) + "</div>");
+      if(p.phone) contactLines.push('<div class="mono">' + fckEsc(p.phone) + "</div>");
+      if(p.social) contactLines.push('<div class="mono">' + fckEsc(p.social) + "</div>");
+      var due = p.nextDate && p.nextDate <= fckLocalDate() && ["Declined","Do not contact"].indexOf(p.status) === -1;
+      return '<tr><td><strong>' + fckEsc(p.name) + "</strong>" + (p.relationship ? '<div class="r-note">' + fckEsc(p.relationship) + "</div>" : "") + "</td>" +
+        '<td><span class="cat-pill">' + fckEsc(p.category) + "</span></td>" +
+        '<td class="r-contact">' + (contactLines.join("") || '<span class="none">&mdash;</span>') + "</td>" +
+        "<td>" + fckEsc(p.status) + (p.nextDate ? '<div class="r-note">' + fckEsc(p.nextDate) + (due ? " — due" : "") + "</div>" : "") + "</td>" +
+        '<td><button class="btn btn-ghost" style="padding:5px 11px;font-size:11px;" data-open-person="' + p.id + '">Open</button></td></tr>';
+    }).join("");
+  }
+  function renderOutreach(){
+    var c = fckActiveCampaign();
+    var notice = document.getElementById("out-readiness-notice");
+    var b = c ? fckBlockers(c) : [];
+    notice.innerHTML = (c && b.length)
+      ? '<div class="notice">Preparation is incomplete. ' + b.length + " readiness item(s) remain. Existing conversations can still be recorded; new sends are blocked until readiness is checked. <button class=\"btn btn-ghost\" style=\"padding:5px 11px;font-size:11px;margin-left:6px;\" onclick=\"document.querySelector('nav.tabs button[data-tab=readiness]').click();\">Review readiness</button></div>"
+      : '<div class="notice good"><strong>Ready to activate.</strong> Use a small batch, listen to replies, and adjust.</div>';
+    fckRenderOutreachTable();
+  }
+  function fckRenderOutreachTable(){
+    var c = fckActiveCampaign();
+    var all = fckCampaignPeople(c);
+    var val = document.getElementById("out-filter") ? document.getElementById("out-filter").value : "All contacts";
+    var shown = all.filter(function(p){
+      if(val === "Follow-ups due") return p.nextDate && p.nextDate <= fckLocalDate() && ["Declined","Do not contact"].indexOf(p.status) === -1;
+      if(val === "Not contacted") return p.status === "Not contacted";
+      if(val === "Declined / Do not contact") return ["Declined","Do not contact"].indexOf(p.status) > -1;
+      return true;
+    });
+    document.getElementById("out-roster-body").innerHTML = fckPersonRows(shown);
+    document.getElementById("out-roster-body").querySelectorAll("[data-open-person]").forEach(function(btn){
+      btn.addEventListener("click", function(){ personDialog(btn.dataset.openPerson); });
+    });
+  }
+  var outFilter = document.getElementById("out-filter");
+  if(outFilter) outFilter.addEventListener("change", fckRenderOutreachTable);
+
+  function personDialog(id){
+    var p = (rosterList || []).find(function(x){ return x.id === id; });
+    if(!p) return;
+    var c = fckActiveCampaign();
+    var blocked = ["Declined","Do not contact"].indexOf(p.status) > -1;
+    fckDialog(p.name,
+      '<div class="card">' +
+        '<p class="section-sub">Category: ' + fckEsc(p.category) + " · Relationship: " + fckEsc(p.relationship || "—") + " · Channel: " + fckEsc(p.channel || "Text") + "</p>" +
+        '<button type="button" class="btn btn-ghost" id="person-prompt-btn" style="margin-bottom:10px;">Draft next message &#8599;</button>' +
+        "<h3 style=\"font-size:14px;\">Conversation history</h3>" +
+        '<form id="history-form">' +
+          '<div class="bp-grid">' +
+            '<div class="bp-field"><label>Activity</label><select id="history-type"><option>Sent</option><option>Reply</option><option>Note</option></select></div>' +
+            '<div class="bp-field"><label>Date</label><input type="date" id="history-date" value="' + fckLocalDate() + '"></div>' +
+          "</div>" +
+          '<div class="bp-field"><label>What was sent / what they said</label><textarea id="history-note"></textarea></div>' +
+          '<div class="save-row"><button class="btn btn-ghost" type="submit">Record activity</button></div>' +
+        "</form>" +
+        (p.history || []).slice().reverse().map(function(h){ return '<div class="timeline"><small>' + fckEsc(h.date) + " · " + fckEsc(h.type) + "</small><p>" + fckEsc(h.note) + "</p></div>"; }).join("") +
+      "</div>" +
+      '<div class="card">' +
+        "<h3 style=\"font-size:14px;\">Record a verified outcome</h3>" +
+        '<p class="section-sub">One person counts once toward the selected outcome, even if they act multiple times. Do not paste payment details or sensitive information.</p>' +
+        '<form id="outcome-form">' +
+          '<div class="bp-grid">' +
+            '<div class="bp-field"><label>Outcome type</label><select id="outcome-type">' + ["Purchase","Subscriber","Utility use","Booking","Referral","Member","Other"].map(function(o){ return "<option" + ((c && c.outcome_type === o) ? " selected" : "") + ">" + o + "</option>"; }).join("") + "</select></div>" +
+            '<div class="bp-field"><label>Date</label><input type="date" id="outcome-date" value="' + fckLocalDate() + '"></div>' +
+          "</div>" +
+          '<div class="bp-field"><label>Evidence / source / non-sensitive reference</label><textarea id="outcome-evidence"></textarea></div>' +
+          '<label class="check-row"><input type="checkbox" id="outcome-verified">I verified this outcome against the campaign definition.</label>' +
+          '<div class="save-row"><button class="btn btn-primary" type="submit">Record outcome</button></div>' +
+        "</form>" +
+        (p.outcomes || []).map(function(o, i){
+          return '<div class="timeline"><strong>' + fckEsc(o.type) + "</strong> · " + fckEsc(o.date) + " · " + (o.verified ? "Verified" : "Unverified") + "<p>" + fckEsc(o.evidence) + "</p>" +
+            '<button type="button" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;" data-remove-outcome="' + i + '">Remove incorrect outcome</button></div>';
+        }).join("") +
+      "</div>");
+
+    var promptBtn = document.getElementById("person-prompt-btn");
+    if(promptBtn) promptBtn.addEventListener("click", function(){ promptDialog("person", c || {}, p); });
+
+    document.getElementById("history-form").addEventListener("submit", function(ev){
+      ev.preventDefault();
+      fckRun(function(){
+        var type = document.getElementById("history-type").value, note = document.getElementById("history-note").value.trim(), date = document.getElementById("history-date").value;
+        if(!note || !date) throw new Error("Add a date and activity details.");
+        if(type === "Sent" && blocked) throw new Error("This contact has a stop status. Do not send another pitch.");
+        if(type === "Sent" && c && fckBlockers(c).length) throw new Error("Finish readiness before recording a new send.");
+        var nextHistory = (p.history || []).concat([{type: type, note: note, date: date}]);
+        var patch = {history: nextHistory};
+        if(type === "Sent") patch.status = "Asked";
+        if(type === "Reply" && !blocked) patch.status = "Responded";
+        return sb.from("fck_ai_first50").update(patch).eq("id", p.id).then(function(res){
+          if(res.error) throw new Error(res.error.message);
+          Object.assign(p, patch);
+          document.getElementById("fck-dialog").close();
+          fckToast("Activity recorded.");
+          personDialog(id);
+          fetchRoster();
+        });
+      });
+    });
+
+    document.getElementById("outcome-form").addEventListener("submit", function(ev){
+      ev.preventDefault();
+      fckRun(function(){
+        var evidence = document.getElementById("outcome-evidence").value.trim(), date = document.getElementById("outcome-date").value;
+        if(!evidence || !date || !document.getElementById("outcome-verified").checked) throw new Error("A verified outcome needs date, evidence and your verification.");
+        var nextOutcomes = (p.outcomes || []).concat([{type: document.getElementById("outcome-type").value, date: date, evidence: evidence, verified: true, campaignRevision: (c && c.revision) || 1}]);
+        return sb.from("fck_ai_first50").update({outcomes: nextOutcomes}).eq("id", p.id).then(function(res){
+          if(res.error) throw new Error(res.error.message);
+          p.outcomes = nextOutcomes;
+          document.getElementById("fck-dialog").close();
+          fckToast("Outcome recorded.");
+          personDialog(id);
+          fetchRoster();
+        });
+      });
+    });
+
+    document.getElementById("dialog-body").querySelectorAll("[data-remove-outcome]").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        fckRun(function(){
+          if(!confirm("Remove this outcome? The verified count will be recalculated.")) return;
+          var idx = Number(btn.dataset.removeOutcome);
+          var next = (p.outcomes || []).slice(); next.splice(idx, 1);
+          return sb.from("fck_ai_first50").update({outcomes: next}).eq("id", p.id).then(function(res){
+            if(res.error) throw new Error(res.error.message);
+            p.outcomes = next;
+            document.getElementById("fck-dialog").close();
+            personDialog(id);
+            fetchRoster();
+          });
+        });
+      });
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // Step 08 — Learn & Amplify
+  // ---------------------------------------------------------------
+  function renderLearn(){
+    var noSel = document.getElementById("lrn-noselect"), form = document.getElementById("learning-form"), statsEl = document.getElementById("lrn-stats");
+    var c = fckActiveCampaign();
+    if(!c){ noSel.style.display = "block"; form.style.display = "none"; statsEl.style.display = "none"; return; }
+    noSel.style.display = "none"; form.style.display = "block"; statsEl.style.display = "block";
+    var st = fckStats(c);
+    statsEl.innerHTML = '<div class="notice' + (st.verified >= st.target ? " good" : "") + '">' +
+      (st.verified >= st.target ? "The recorded outcome target is reached. Review the evidence before declaring the milestone." : "The verified outcome target has not been reached.") +
+      " (" + st.identified + " identified · " + st.contacted + " contacted · " + st.replied + " replied · " + st.verified + " / " + st.target + " verified). Utility access never changes automatically.</div>";
+    var l = c.learning || {};
+    document.getElementById("lrn-observation").value = l.observation || "";
+    document.getElementById("lrn-evidence").value = l.evidence || "";
+    document.getElementById("lrn-lesson").value = l.lesson || "";
+    document.getElementById("lrn-change").value = l.change || "";
+    document.getElementById("lrn-status").value = l.status || "Proposed";
+    document.getElementById("lrn-decision").value = l.decision || "";
+    document.getElementById("lrn-gate").checked = !!l.approvedGate;
+    document.getElementById("lrn-gate-evidence").value = l.gateEvidence || "";
+  }
+  var learningForm = document.getElementById("learning-form");
+  if(learningForm) learningForm.addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var msg = document.getElementById("lrn-msg");
+    fckRun(function(){
+      var c = fckActiveCampaign();
+      var vals = {
+        observation: document.getElementById("lrn-observation").value.trim(),
+        evidence: document.getElementById("lrn-evidence").value.trim(),
+        lesson: document.getElementById("lrn-lesson").value.trim(),
+        change: document.getElementById("lrn-change").value.trim(),
+        status: document.getElementById("lrn-status").value,
+        decision: document.getElementById("lrn-decision").value.trim(),
+        approvedGate: document.getElementById("lrn-gate").checked,
+        gateEvidence: document.getElementById("lrn-gate-evidence").value.trim()
+      };
+      if(vals.status === "Validated with evidence" && !vals.evidence) throw new Error("Validation requires supporting evidence.");
+      var st = fckStats(c);
+      if(vals.approvedGate && (st.verified < st.target || !vals.gateEvidence)) throw new Error("Record the verified milestone and access-decision evidence first.");
+      return fckUpdateCampaign({learning: vals}).then(function(){ msg.textContent = "Saved."; msg.className = "save-msg"; });
+    });
+  });
+
+  // ---------------------------------------------------------------
+  // Initial render once campaigns/roster are already loaded on boot
+  // (covers the case where auth resolves before this module runs).
+  // ---------------------------------------------------------------
+  if(dbLoaded) fckOnCampaignsLoaded();
+  if(rosterLoaded) fckOnRosterLoaded();
 })();
 </script>
 </body>
